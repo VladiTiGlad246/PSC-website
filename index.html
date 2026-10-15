@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="bg" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ученически съвет · ПГЕА София</title>
+<meta name="description" content="Ученическият съвет на ПГЕА – София: инициативи, събития, комисии, права на учениците и директна връзка със Съвета.">
+<meta name="theme-color" content="#070B14">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ученически съвет · ПГЕА София">
+<meta property="og:description" content="Идеите имат енергия. Ние я превръщаме в действие.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23070B14'/%3E%3Cpath d='M36 8 16 36h14l-4 20 22-30H34z' fill='%23FFC83D'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+/* Тема + флаг за JS преди рендериране (без „премигване“) */
+(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('uchs-theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)}catch(e){}})();
+</script>
+<style>
+/* =========================================================
+   1. ДИЗАЙН ТОКЕНИ
+   Строга, „инженерна“ естетика: малки радиуси, тънки линии,
+   цветът е сигнал, а не декорация.
+   ========================================================= */
+:root{
+  --font:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+
+  --bg:#F4F5F7; --bg-alt:#ECEEF2; --surface:#FFFFFF; --surface-2:#F7F8FA;
+  --ink:#0B1020; --text:#39425A; --muted:#667089;
+  --line:#DDE1E8; --line-strong:#C2C8D3;
+
+  --volt:#1F5BFF;  --volt-ink:#1646CC;
+  --cyan:#0A8FB0;  --cyan-ink:#076F89;
+  --spark:#F2B400; --spark-ink:#8A6400;
+  --coral:#E0474C; --coral-ink:#B8343A;
+  --mint:#0F9D6B;  --mint-ink:#0B7A53;
+  --violet:#6B4EF0;--violet-ink:#5238CF;
+
+  /* Hero, „Включи се“ и футърът са винаги тъмни */
+  --dark:#070B14; --dark-2:#0C1220; --dark-line:rgba(255,255,255,.1);
+  --dark-ink:#F3F5FA; --dark-text:#A3ADC2; --dark-muted:#7A859C;
+  --d-spark:#FFC83D; --d-volt:#6F95FF;
+
+  --r:4px; --r-lg:6px;
+  --max:1200px; --header-h:68px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+[data-theme="dark"]{
+  --bg:#0A0E17; --bg-alt:#0D121D; --surface:#111724; --surface-2:#151C2B;
+  --ink:#EDF0F7; --text:#BAC2D4; --muted:#8690A6;
+  --line:#212A3B; --line-strong:#313C52;
+  --volt:#5A86FF;  --volt-ink:#8EAEFF;
+  --cyan:#2BB8D8;  --cyan-ink:#6FD3EA;
+  --spark:#FFC83D; --spark-ink:#FFD36B;
+  --coral:#FF6A6F; --coral-ink:#FF9A9E;
+  --mint:#2FC98E;  --mint-ink:#6BE0B3;
+  --violet:#8F78FF;--violet-ink:#B6A7FF;
+  color-scheme:dark;
+}
+
+/* =========================================================
+   2. БАЗА
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 16px);-webkit-text-size-adjust:100%}
+body{font-family:var(--font);font-size:16px;line-height:1.6;color:var(--text);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img,svg,canvas,iframe{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+h1,h2,h3,h4{color:var(--ink);line-height:1.1;letter-spacing:-.02em;font-weight:700;overflow-wrap:break-word}
+::selection{background:var(--spark);color:#1a1200}
+:focus-visible{outline:2px solid var(--volt);outline-offset:2px}
+.container{width:min(var(--max),calc(100% - 48px));margin-inline:auto}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--mono)}
+.skip{position:fixed;left:16px;top:-60px;z-index:999;background:var(--spark);color:#1a1200;padding:10px 16px;border-radius:var(--r);font-weight:700;transition:top .2s}
+.skip:focus{top:12px}
+svg.i{width:18px;height:18px;flex-shrink:0}
+
+/* Цветни канали */
+.c-volt{--c:var(--volt);--c-ink:var(--volt-ink)}
+.c-cyan{--c:var(--cyan);--c-ink:var(--cyan-ink)}
+.c-spark{--c:var(--spark);--c-ink:var(--spark-ink)}
+.c-coral{--c:var(--coral);--c-ink:var(--coral-ink)}
+.c-mint{--c:var(--mint);--c-ink:var(--mint-ink)}
+.c-violet{--c:var(--violet);--c-ink:var(--violet-ink)}
+
+/* Поява при скрол — само ако JS работи (иначе съдържанието е видимо) */
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:.06s!important}.reveal-d2{transition-delay:.12s!important}.reveal-d3{transition-delay:.18s!important}
+
+/* =========================================================
+   3. ХЕДЪР
+   ========================================================= */
+header.site{position:fixed;inset:0 0 auto;z-index:100;height:var(--header-h);border-bottom:1px solid transparent;transition:background-color .25s,border-color .25s}
+header.site.scrolled{background:var(--surface);border-color:var(--line)}
+header.site > .container{height:100%}
+nav.main{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.brand-mark{width:36px;height:36px;flex-shrink:0}
+.brand-text small{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);line-height:1.3}
+.brand-text strong{display:block;font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1.25}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{position:relative;padding:8px 10px;font-size:14px;white-space:nowrap;font-weight:600;color:var(--text);transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a.active{color:var(--ink)}
+.nav-links a.active::after{content:"";position:absolute;left:10px;right:10px;bottom:2px;height:2px;background:var(--spark)}
+.nav-tools{display:flex;align-items:center;gap:8px}
+.icon-btn{width:40px;height:40px;display:grid;place-items:center;border-radius:var(--r);border:1px solid var(--line-strong);color:var(--ink);transition:background-color .2s,border-color .2s}
+.icon-btn:hover{border-color:var(--ink)}
+.icon-btn svg{width:18px;height:18px}
+.theme-toggle .sun{display:none}
+[data-theme="dark"] .theme-toggle .sun{display:block}
+[data-theme="dark"] .theme-toggle .moon{display:none}
+.menu-btn{display:none}
+/* Над тъмния hero */
+header.site:not(.scrolled) .brand-text strong{color:var(--dark-ink)}
+header.site:not(.scrolled) .brand-text small{color:var(--dark-muted)}
+header.site:not(.scrolled) .nav-links a{color:var(--dark-text)}
+header.site:not(.scrolled) .nav-links a:hover,header.site:not(.scrolled) .nav-links a.active{color:#fff}
+header.site:not(.scrolled) .icon-btn{color:var(--dark-ink);border-color:rgba(255,255,255,.22)}
+header.site:not(.scrolled) .icon-btn:hover{border-color:#fff}
+
+/* =========================================================
+   4. БУТОНИ И ОБЩИ ЕЛЕМЕНТИ
+   ========================================================= */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 20px;border-radius:var(--r);border:1px solid transparent;font-weight:700;font-size:15px;line-height:1.2;white-space:nowrap;transition:background-color .2s,border-color .2s,color .2s}
+.btn svg{width:17px;height:17px;flex-shrink:0;transition:transform .2s var(--ease)}
+.btn:hover svg.go{transform:translateX(3px)}
+.btn-primary{background:var(--volt);color:#fff}
+.btn-primary:hover{background:var(--volt-ink)}
+[data-theme="dark"] .btn-primary{color:#07102a}
+[data-theme="dark"] .btn-primary:hover{background:#7C9DFF}
+.btn-signal{background:var(--d-spark);color:#1E1500}
+.btn-signal:hover{background:#FFD76A}
+.btn-ghost{border-color:var(--line-strong);color:var(--ink);background:var(--surface)}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-ghost-dark{border-color:rgba(255,255,255,.28);color:#fff}
+.btn-ghost-dark:hover{border-color:#fff;background:rgba(255,255,255,.04)}
+.btn-sm{padding:9px 14px;font-size:13.5px}
+.btn[disabled]{opacity:.55;pointer-events:none}
+kbd{font-family:var(--mono);font-size:11px;font-weight:500;padding:2px 6px;border-radius:3px;border:1px solid currentColor;opacity:.7;line-height:1.2}
+
+.section{padding:112px 0;position:relative}
+.section.alt{background:var(--bg-alt)}
+.sec-head{display:grid;grid-template-columns:220px 1fr;gap:20px 48px;padding-top:22px;border-top:1px solid var(--line-strong);margin-bottom:56px}
+.sec-label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:12px;align-items:baseline;padding-top:6px}
+.sec-label b{color:var(--c-ink,var(--volt-ink));font-weight:600}
+.sec-title{font-size:clamp(30px,3.8vw,50px);font-weight:700;letter-spacing:-.03em;line-height:1.06}
+.sec-title em{font-style:normal;color:var(--muted)}
+.sec-lead{margin-top:18px;font-size:17px;max-width:640px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg)}
+.card.hov{transition:border-color .2s}
+.card.hov:hover{border-color:var(--line-strong)}
+.accent{position:relative}
+.accent::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:3px;background:var(--c);border-radius:var(--r-lg) var(--r-lg) 0 0}
+
+.tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--c-ink,var(--muted))}
+.tag::before{content:"";width:7px;height:7px;background:var(--c,var(--muted));flex-shrink:0}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:var(--r);border:1px solid var(--line-strong);font-size:13.5px;font-weight:600;color:var(--text);background:var(--surface);transition:background-color .2s,border-color .2s,color .2s}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip .n{font-family:var(--mono);font-size:11px;opacity:.6}
+.chip.c-volt::before,.chip.c-cyan::before,.chip.c-spark::before,.chip.c-coral::before,.chip.c-mint::before,.chip.c-violet::before{content:"";width:7px;height:7px;background:var(--c)}
+.bar{height:4px;background:var(--bg-alt);overflow:hidden}
+[data-theme="dark"] .bar{background:var(--line)}
+.bar i{display:block;height:100%;width:0;background:var(--c);transition:width 1s var(--ease)}
+
+/* =========================================================
+   5. HERO
+   ========================================================= */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;background:var(--dark);color:var(--dark-text);overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;
+  background-image:linear-gradient(var(--dark-line) 1px,transparent 1px),linear-gradient(90deg,var(--dark-line) 1px,transparent 1px);
+  background-size:64px 64px;background-position:-1px -1px;opacity:.45;
+  -webkit-mask:linear-gradient(180deg,#000 30%,transparent 95%);mask:linear-gradient(180deg,#000 30%,transparent 95%)}
+.hero canvas#circuit{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero-main{flex:1;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);gap:64px;align-items:center;padding:calc(var(--header-h) + 64px) 0 64px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dark-muted);margin-bottom:32px}
+.hero-meta span{display:inline-flex;align-items:center;gap:10px}
+.hero-meta span+span::before{content:"";width:14px;height:1px;background:currentColor;opacity:.6}
+.hero-meta b{color:var(--d-spark);font-weight:600}
+.hero h1{color:var(--dark-ink);font-size:clamp(40px,4.9vw,72px);font-weight:700;letter-spacing:-.04em;line-height:1;margin-bottom:30px}
+.hero h1 .line{display:block}
+.hero h1 .dim{color:#6E7A94}
+.hero h1 .hl{color:var(--d-spark)}
+.hero-lead{font-size:clamp(16px,1.35vw,18.5px);max-width:580px;margin-bottom:38px;color:var(--dark-text)}
+.hero-lead strong{color:#fff;font-weight:600}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px}
+
+/* Табло „Следващо събитие“ */
+.panel{border:1px solid rgba(255,255,255,.14);background:rgba(12,18,32,.72);border-radius:var(--r-lg)}
+.panel-row{padding:18px 22px;border-bottom:1px solid rgba(255,255,255,.1)}
+.panel-row:last-child{border-bottom:0}
+.panel-top{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dark-muted)}
+.panel .tag{--c-ink:#C9D2E6}
+.panel h3{color:#fff;font-size:21px;line-height:1.25;margin:12px 0 6px;letter-spacing:-.015em}
+.panel .meta{font-size:14px;color:var(--dark-text)}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid rgba(255,255,255,.1)}
+.countdown div{padding:16px 8px 14px;text-align:center;border-left:1px solid rgba(255,255,255,.1)}
+.countdown div:first-child{border-left:0}
+.countdown b{display:block;font-family:var(--mono);font-size:28px;font-weight:500;color:#fff;line-height:1.1;font-variant-numeric:tabular-nums}
+.countdown span{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dark-muted)}
+.countdown.live b{color:var(--d-spark)}
+.meter-title{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dark-muted);margin-bottom:12px}
+.meter-row{display:grid;grid-template-columns:minmax(0,1fr) 38px;gap:4px 12px;align-items:center;font-size:13px;color:var(--dark-text);margin-bottom:12px}
+.meter-row:last-child{margin-bottom:0}
+.meter-row span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meter-row em{font-style:normal;font-family:var(--mono);font-size:12px;text-align:right;color:#fff}
+.meter-row .bar{grid-column:1/-1;background:rgba(255,255,255,.08);height:3px}
+
+/* Съобщения — статичен ред вместо бегъща лента */
+.notices{border-top:1px solid var(--dark-line);background:rgba(255,255,255,.015)}
+.notices .container{display:grid;grid-template-columns:repeat(3,1fr)}
+.notice{display:flex;gap:14px;align-items:baseline;padding:20px 24px 22px 0;font-size:14px;color:#C8D0E2}
+.notice+.notice{padding-left:24px;border-left:1px solid var(--dark-line)}
+.notice b{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;color:var(--c);white-space:nowrap}
+.notice a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+/* =========================================================
+   6. СТАТИСТИКИ
+   ========================================================= */
+.stats-band{background:var(--surface);border-bottom:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:34px 28px 30px;border-left:1px solid var(--line);position:relative}
+.stat:first-child{border-left:0;padding-left:0}
+.stat strong{display:flex;align-items:baseline;gap:8px;font-size:clamp(34px,3.6vw,48px);font-weight:700;color:var(--ink);letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums;margin-bottom:10px}
+.stat strong small{font-size:15px;font-weight:600;letter-spacing:0;color:var(--muted)}
+.stat > span{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);font-weight:500}
+.stat > span::before{content:"";width:8px;height:8px;background:var(--c);flex-shrink:0}
+
+/* =========================================================
+   7. ЗА НАС
+   ========================================================= */
+.about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:64px;align-items:start}
+.about-copy p{font-size:17px;margin-bottom:18px}
+.about-copy p strong{color:var(--ink);font-weight:600}
+.quote{margin-top:32px;padding:4px 0 4px 24px;border-left:3px solid var(--spark);font-size:20px;font-weight:600;color:var(--ink);line-height:1.4;letter-spacing:-.01em}
+.quote small{display:block;margin-top:12px;font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.04em;color:var(--muted)}
+.cells{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.cell{background:var(--surface);padding:28px 26px;display:flex;flex-direction:column;min-height:200px}
+.cell-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:auto}
+.cell-top .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.cell-top svg{width:22px;height:22px;color:var(--c-ink)}
+.cell h3{font-size:19px;margin:28px 0 6px}
+.cell p{font-size:14.5px;color:var(--muted)}
+.cell.wide{grid-column:span 2;min-height:auto;flex-direction:row;gap:24px;align-items:flex-start}
+.cell.wide h3{margin-top:0}
+.cell.wide svg{width:22px;height:22px;color:var(--c-ink);margin-top:2px;flex-shrink:0}
+
+/* =========================================================
+   8. КАК РАБОТИМ
+   ========================================================= */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden}
+.step{position:relative;padding:22px 22px 26px;text-align:left;border-left:1px solid var(--line);transition:background-color .2s;display:block;width:100%}
+.step:first-child{border-left:0}
+.step::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--c);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.step:hover{background:var(--surface-2)}
+.step[aria-selected="true"]{background:var(--surface-2)}
+.step[aria-selected="true"]::after{transform:scaleX(1)}
+.step .n{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.step[aria-selected="true"] .n{color:var(--c-ink)}
+.step h3{font-size:19px;margin:18px 0 4px}
+.step p{font-size:14px;color:var(--muted)}
+.flow-detail{margin-top:16px;padding:30px 32px;display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:start}
+.flow-detail .big{font-family:var(--mono);font-size:48px;font-weight:500;line-height:1;color:var(--c-ink)}
+.flow-detail h3{font-size:22px;margin-bottom:6px}
+.flow-detail ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px}
+.flow-detail li{font-size:14px;font-weight:600;color:var(--text);display:flex;gap:9px;align-items:center}
+.flow-detail li::before{content:"";width:6px;height:6px;background:var(--c)}
+.flow-detail .time{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-align:right;color:var(--muted)}
+.flow-detail .time b{display:block;font-family:var(--font);font-size:20px;letter-spacing:-.01em;text-transform:none;color:var(--ink);margin-top:4px}
+.swap{animation:swap .35s var(--ease)}
+@keyframes swap{from{opacity:0;transform:translateY(6px)}}
+
+/* =========================================================
+   9. СЪБИТИЯ
+   ========================================================= */
+.events-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.seg{display:flex;border:1px solid var(--line-strong);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.seg button{padding:8px 14px;font-size:13px;font-weight:600;color:var(--muted)}
+.seg button+button{border-left:1px solid var(--line-strong)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.events{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden}
+.event{display:grid;grid-template-columns:92px 1fr auto;gap:28px;align-items:center;padding:22px 26px;border-top:1px solid var(--line);transition:background-color .2s}
+.event:first-child{border-top:0}
+.event:hover{background:var(--surface-2)}
+.event.past{opacity:.5}
+.e-date{border-left:3px solid var(--c);padding-left:14px}
+.e-date b{display:block;font-size:34px;font-weight:700;line-height:1;color:var(--ink);letter-spacing:-.03em}
+.e-date span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--muted)}
+.e-body h3{font-size:19px;margin:8px 0 4px;letter-spacing:-.015em}
+.e-body p{font-size:14.5px;color:var(--muted);max-width:640px}
+.e-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:13px;font-weight:500;color:var(--text)}
+.e-meta span{display:inline-flex;align-items:center;gap:6px}
+.e-meta svg{width:14px;height:14px;color:var(--muted)}
+.e-actions{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.soon{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--c-ink)}
+.events.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+.events.grid .event{grid-template-columns:1fr;gap:16px;align-items:start;border-top:0;background:var(--surface)}
+.events.grid .event:hover{background:var(--surface-2)}
+.events.grid .e-date{display:flex;align-items:baseline;gap:10px}
+.events.grid .e-date b{font-size:26px}
+.events.grid .e-actions{flex-direction:row;align-items:center;justify-content:space-between;margin-top:auto}
+.empty{padding:48px;text-align:center;color:var(--muted)}
+
+/* =========================================================
+   10. ИНИЦИАТИВИ
+   ========================================================= */
+.tracker{display:grid;grid-template-columns:1fr 1.5fr;gap:40px;align-items:center;padding:28px 30px;margin-bottom:20px}
+.tracker h3{font-size:20px;margin-bottom:4px}
+.tracker p{font-size:14px;color:var(--muted)}
+.tracker-bar{display:flex;height:10px;gap:2px;background:var(--bg-alt)}
+[data-theme="dark"] .tracker-bar{background:var(--line)}
+.tracker-bar i{display:block;height:100%;width:0;transition:width 1.1s var(--ease)}
+.tracker-legend{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:14px;font-size:13.5px;font-weight:600;color:var(--text)}
+.tracker-legend span{display:flex;align-items:center;gap:9px}
+.tracker-legend i{width:9px;height:9px}
+.tracker-legend b{font-family:var(--mono);font-weight:500;color:var(--ink)}
+.ini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ini{padding:26px 24px 24px;display:flex;flex-direction:column;min-height:270px}
+.ini-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}
+.status{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:3px;border:1px solid currentColor}
+.status.s-done{color:var(--mint-ink)}
+.status.s-progress{color:var(--spark-ink)}
+.status.s-planned{color:var(--violet-ink)}
+.ini h3{font-size:18.5px;line-height:1.25;margin-bottom:8px;letter-spacing:-.015em}
+.ini p{font-size:14.5px;color:var(--muted);margin-bottom:20px}
+.ini-foot{margin-top:auto}
+.ini-progress{display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:8px;color:var(--muted)}
+.ini-progress b{font-family:var(--mono);font-weight:500;color:var(--ink)}
+.ini-next{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.ini-next b{color:var(--text);font-weight:600}
+
+/* =========================================================
+   11. КОМИСИИ
+   ========================================================= */
+.com-wrap{display:grid;grid-template-columns:300px 1fr;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden}
+.com-tabs{display:flex;flex-direction:column;border-right:1px solid var(--line);background:var(--surface-2)}
+.com-tab{position:relative;display:flex;align-items:center;gap:14px;padding:18px 20px;text-align:left;font-weight:600;font-size:15px;color:var(--text);border-bottom:1px solid var(--line);transition:background-color .2s,color .2s}
+.com-tab:last-child{border-bottom:0}
+.com-tab::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c);transform:scaleY(0);transition:transform .25s var(--ease)}
+.com-tab:hover{color:var(--ink);background:var(--surface)}
+.com-tab[aria-selected="true"]{background:var(--surface);color:var(--ink)}
+.com-tab[aria-selected="true"]::before{transform:scaleY(1)}
+.com-tab svg{width:20px;height:20px;color:var(--c-ink);flex-shrink:0}
+.com-tab .n{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.com-panel{padding:44px 44px 40px;min-height:440px}
+.com-panel .tag{margin-bottom:18px}
+.com-panel h3{font-size:clamp(26px,2.6vw,34px);margin-bottom:14px;letter-spacing:-.025em}
+.com-panel .lead{font-size:16.5px;max-width:640px;margin-bottom:32px}
+.com-cols{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:34px;padding-top:26px;border-top:1px solid var(--line)}
+.com-cols h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-weight:500}
+.com-cols ul{list-style:none;display:grid;gap:10px}
+.com-cols li{display:flex;gap:12px;font-size:15px;font-weight:500;color:var(--text)}
+.com-cols li::before{content:"";width:6px;height:6px;margin-top:9px;background:var(--c);flex-shrink:0}
+
+/* =========================================================
+   12. ЕКИП
+   ========================================================= */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.person{padding:26px 24px}
+.avatar{width:56px;height:56px;border-radius:var(--r);display:grid;place-items:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:22px;background:var(--c)}
+[data-theme="dark"] .avatar{color:#0A0E17}
+.person h3{font-size:18px;margin-bottom:2px}
+.person .role{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--c-ink);margin-bottom:12px}
+.person p{font-size:14px;color:var(--muted)}
+.person.vacant{border-style:dashed;background:transparent}
+.person.vacant .avatar{background:transparent;border:1px dashed var(--c);color:var(--c-ink)}
+.person.vacant a{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:14px;font-weight:700;color:var(--c-ink)}
+.person.vacant a:hover{text-decoration:underline;text-underline-offset:3px}
+.reps{margin-top:16px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.reps b{display:block;color:var(--ink);font-size:17px}
+.reps p{font-size:14.5px;color:var(--muted)}
+
+/* =========================================================
+   13. ТВОЯТ ГЛАС
+   ========================================================= */
+.voice-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:start}
+.box{padding:32px}
+.box-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px}
+.box h3{font-size:22px;letter-spacing:-.02em}
+.box .sub{font-size:14.5px;color:var(--muted);margin-bottom:24px}
+.poll-opts{display:grid;gap:8px;margin-bottom:16px}
+.poll-opt{position:relative;display:block;cursor:pointer}
+.poll-opt input{position:absolute;opacity:0;pointer-events:none}
+.poll-opt span{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);font-weight:600;font-size:15px;color:var(--ink);transition:border-color .2s,background-color .2s}
+.poll-opt span::before{content:"";width:14px;height:14px;border:1.5px solid var(--line-strong);border-radius:50%;flex-shrink:0;transition:border-color .2s,box-shadow .2s}
+.poll-opt:hover span{border-color:var(--ink)}
+.poll-opt input:checked + span{border-color:var(--c);background:color-mix(in srgb,var(--c) 7%,var(--surface))}
+.poll-opt input:checked + span::before{border-color:var(--c);box-shadow:inset 0 0 0 3px var(--surface),inset 0 0 0 8px var(--c)}
+.poll-opt input:focus-visible + span{outline:2px solid var(--volt);outline-offset:2px}
+.poll-opt input:disabled + span{cursor:default}
+.poll-done{padding:18px;border:1px solid var(--line);border-left:3px solid var(--mint);border-radius:var(--r);background:var(--surface-2);font-size:14.5px}
+.poll-done b{color:var(--ink)}
+.ideas{display:grid;border-top:1px solid var(--line)}
+.idea{display:grid;grid-template-columns:1fr auto;gap:6px 16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.idea h4{font-size:15px;font-weight:600;color:var(--ink);line-height:1.35;letter-spacing:-.005em}
+.idea small{grid-column:1;font-size:12.5px;color:var(--muted)}
+.idea .st{grid-row:1/3;grid-column:2;align-self:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--c-ink);padding:4px 8px;border:1px solid currentColor;border-radius:3px;white-space:nowrap}
+
+/* =========================================================
+   14. ФОРМИ
+   ========================================================= */
+.form{display:grid;gap:18px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row3{display:grid;grid-template-columns:1.3fr .7fr 1.3fr;gap:14px}
+.field label,.field .lbl{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:7px}
+.field .hint{font-weight:500;color:var(--muted)}
+.input{width:100%;padding:12px 14px;border-radius:var(--r);border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s}
+.input::placeholder{color:var(--muted);opacity:.7}
+.input:hover{border-color:color-mix(in srgb,var(--ink) 40%,var(--line-strong))}
+.input:focus{border-color:var(--volt);box-shadow:0 0 0 3px color-mix(in srgb,var(--volt) 18%,transparent)}
+.input.err,.pick.err span{border-color:var(--coral)}
+.input.err:focus{box-shadow:0 0 0 3px color-mix(in srgb,var(--coral) 18%,transparent)}
+textarea.input{min-height:124px;resize:vertical;line-height:1.5}
+select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23667089' stroke-width='2.2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:16px;padding-right:40px}
+.field-foot{display:flex;justify-content:space-between;gap:12px;margin-top:6px;min-height:16px}
+.err-msg{font-size:12.5px;font-weight:600;color:var(--coral-ink)}
+.counter{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap}
+.counter.over{color:var(--coral-ink)}
+.check{display:flex;align-items:flex-start;gap:12px;font-size:14px;font-weight:500;color:var(--text);cursor:pointer;user-select:none}
+.check input{position:absolute;opacity:0;pointer-events:none}
+.check .box-ic{width:18px;height:18px;border:1.5px solid var(--line-strong);border-radius:3px;flex-shrink:0;margin-top:2px;display:grid;place-items:center;background:var(--surface);transition:background-color .15s,border-color .15s}
+.check .box-ic svg{width:12px;height:12px;color:#fff;opacity:0}
+.check input:checked + .box-ic{background:var(--volt);border-color:var(--volt)}
+.check input:checked + .box-ic svg{opacity:1}
+.check input:focus-visible + .box-ic{outline:2px solid var(--volt);outline-offset:2px}
+.check.err .box-ic{border-color:var(--coral)}
+.pick{display:flex;flex-wrap:wrap;gap:6px}
+.pick label{margin:0;cursor:pointer;display:block}
+.pick input{position:absolute;opacity:0;pointer-events:none}
+.pick span{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:var(--r);border:1px solid var(--line-strong);font-size:13.5px;font-weight:600;color:var(--text);background:var(--surface);transition:border-color .15s,background-color .15s,color .15s}
+.pick span::before{content:"";width:8px;height:8px;background:var(--c)}
+.pick label:hover span{border-color:var(--ink)}
+.pick input:checked + span{border-color:var(--c);background:color-mix(in srgb,var(--c) 10%,var(--surface));color:var(--ink)}
+.pick input:focus-visible + span{outline:2px solid var(--volt);outline-offset:2px}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.form-note{font-size:12.5px;color:var(--muted)}
+
+/* Поле „Статус на предаването“ */
+.submit-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:stretch}
+.send-status{position:relative;display:flex;align-items:center;gap:12px;min-height:48px;padding:8px 14px;border:1px dashed var(--line-strong);border-radius:var(--r);background:var(--surface-2);font-size:13.5px;font-weight:600;color:var(--muted);overflow:hidden;transition:border-color .2s,background-color .2s,color .2s}
+.send-status .st-label{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;opacity:.75;padding-right:12px;border-right:1px solid currentColor;line-height:1.1;white-space:nowrap}
+.send-status .st-dot{width:8px;height:8px;background:currentColor;flex-shrink:0}
+.send-status .st-text{min-width:0;line-height:1.35}
+.send-status .st-meta{margin-left:auto;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.03em;white-space:nowrap;opacity:.85}
+.send-status[data-state="invalid"],.send-status[data-state="error"]{color:var(--coral-ink);border-style:solid;border-color:color-mix(in srgb,var(--coral) 55%,transparent);background:color-mix(in srgb,var(--coral) 6%,var(--surface))}
+.send-status[data-state="wait"]{color:var(--spark-ink);border-style:solid;border-color:color-mix(in srgb,var(--spark) 60%,transparent);background:color-mix(in srgb,var(--spark) 8%,var(--surface))}
+.send-status[data-state="sending"]{color:var(--volt-ink);border-style:solid;border-color:color-mix(in srgb,var(--volt) 55%,transparent);background:color-mix(in srgb,var(--volt) 6%,var(--surface))}
+.send-status[data-state="sending"]::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:35%;background:var(--volt);animation:load 1.1s ease-in-out infinite}
+.send-status[data-state="sending"] .st-dot{animation:blink .8s steps(2) infinite}
+.send-status[data-state="ok"]{color:var(--mint-ink);border-style:solid;border-color:color-mix(in srgb,var(--mint) 55%,transparent);background:color-mix(in srgb,var(--mint) 7%,var(--surface))}
+@keyframes load{from{transform:translateX(-100%)}to{transform:translateX(290%)}}
+@keyframes blink{50%{opacity:0}}
+
+/* =========================================================
+   15. ПРАВА + ЧЗВ
+   ========================================================= */
+.rights-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start}
+.law{padding:24px 26px;margin-top:32px;border-left:3px solid var(--volt)}
+.law b{display:block;font-size:16px;color:var(--ink);margin-bottom:6px}
+.law p{font-size:14px;color:var(--muted)}
+.acc{border-top:1px solid var(--line-strong)}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;display:flex;align-items:center;gap:18px;padding:20px 4px;cursor:pointer;font-weight:600;font-size:16.5px;color:var(--ink);letter-spacing:-.01em}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary:hover{color:var(--volt-ink)}
+.acc summary .num{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--c-ink,var(--muted));width:26px;flex-shrink:0}
+.acc summary .plus{position:relative;margin-left:auto;width:14px;height:14px;flex-shrink:0}
+.acc summary .plus::before,.acc summary .plus::after{content:"";position:absolute;left:0;top:6px;width:14px;height:2px;background:currentColor;transition:transform .25s var(--ease)}
+.acc summary .plus::after{transform:rotate(90deg)}
+.acc details[open] .plus::after{transform:rotate(0)}
+.acc .body{padding:0 40px 22px 48px;font-size:15px;color:var(--text)}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;align-items:start;border-top:0}
+
+
+/* =========================================================
+   16. ВКЛЮЧИ СЕ
+   ========================================================= */
+.join{background:var(--dark);color:var(--dark-text);isolation:isolate;overflow:hidden}
+.join::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(var(--dark-line) 1px,transparent 1px),linear-gradient(90deg,var(--dark-line) 1px,transparent 1px);background-size:64px 64px;opacity:.35;-webkit-mask:linear-gradient(90deg,#000,transparent 70%);mask:linear-gradient(90deg,#000,transparent 70%)}
+.join .sec-head{border-top-color:rgba(255,255,255,.18)}
+[data-theme="dark"] .join{background:#05070D;border-block:1px solid var(--line)}
+.join .sec-label{color:var(--dark-muted)}
+.join .sec-label b{color:var(--d-spark)}
+.join-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
+.join h2{color:#fff;font-size:clamp(32px,4.2vw,56px);letter-spacing:-.035em;line-height:1.04;margin-bottom:22px}
+.join h2 em{font-style:normal;color:var(--d-spark)}
+.join-lead{font-size:17px;margin-bottom:34px;max-width:480px}
+.perks{list-style:none;border-top:1px solid var(--dark-line)}
+.perks li{display:grid;grid-template-columns:32px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--dark-line);font-size:15px;color:#CBD3E4}
+.perks li .n{font-family:var(--mono);font-size:12px;color:var(--d-spark);padding-top:2px}
+.perks li b{color:#fff;font-weight:600}
+.join-card{padding:32px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--line);color:var(--text)}
+.steps-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:28px}
+.steps-bar i{display:block;height:3px;background:var(--line);position:relative;overflow:hidden}
+.steps-bar i::after{content:"";position:absolute;inset:0;background:var(--volt);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.steps-bar div.done i::after,.steps-bar div.cur i::after{transform:scaleX(1)}
+.steps-bar span{display:block;margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.steps-bar div.cur span{color:var(--ink)}
+.jstep{display:none}
+.jstep.on{display:grid;gap:18px;animation:swap .3s var(--ease)}
+.join-nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.join-nav .btn{min-width:130px}
+.join-card .submit-row{margin-top:18px}
+.success{display:none;padding:12px 0}
+.success.on{display:block;animation:swap .35s var(--ease)}
+.success .ok{width:56px;height:56px;margin-bottom:22px;border-radius:var(--r);display:grid;place-items:center;background:color-mix(in srgb,var(--mint) 14%,transparent);color:var(--mint-ink)}
+.success .ok svg{width:28px;height:28px}
+.success h3{font-size:24px;margin-bottom:8px}
+.success p{color:var(--muted);margin-bottom:8px}
+.success .ref{font-family:var(--mono);font-size:13px;color:var(--ink);margin-bottom:24px}
+
+/* =========================================================
+   17. МРЕЖА, КОНТАКТИ, КАРТА
+   ========================================================= */
+.net-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.net{padding:26px 24px 22px;display:flex;flex-direction:column;min-height:220px}
+.net .abbr{font-size:28px;font-weight:800;color:var(--c-ink);margin-bottom:14px;letter-spacing:-.03em;line-height:1}
+.net h3{font-size:16px;font-weight:700;margin-bottom:6px;line-height:1.3;letter-spacing:-.01em}
+.net p{font-size:14px;color:var(--muted)}
+.net .go{margin-top:auto;padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:6px;font-family:var(--mono);font-size:12px;color:var(--c-ink);border-top:1px solid var(--line)}
+.net .go svg{width:15px;height:15px;transition:transform .2s var(--ease)}
+.net:hover .go svg{transform:translate(2px,-2px)}
+.net:hover{border-color:var(--c)}
+.contact-grid{display:grid;grid-template-columns:5fr 7fr;gap:16px;margin-top:16px;align-items:stretch}
+.contact-card{display:flex;flex-direction:column}
+.c-row{display:grid;grid-template-columns:40px 1fr;gap:16px;align-items:start;padding:20px 26px;border-bottom:1px solid var(--line)}
+.c-row .ic{width:40px;height:40px;border-radius:var(--r);display:grid;place-items:center;color:var(--c-ink);border:1px solid var(--line-strong)}
+.c-row .ic svg{width:18px;height:18px}
+.c-row .k{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.c-row b{display:block;font-size:15.5px;font-weight:600;color:var(--ink)}
+.c-row a,.c-row .v{font-size:14.5px;color:var(--text)}
+.c-row a:hover{color:var(--volt-ink);text-decoration:underline;text-underline-offset:3px}
+.c-foot{display:flex;flex-wrap:wrap;gap:8px;padding:20px 26px;margin-top:auto}
+.socials{display:contents}
+.socials a{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:var(--r);border:1px solid var(--line-strong);font-size:13.5px;font-weight:600;color:var(--ink);transition:border-color .2s}
+.socials a:hover{border-color:var(--ink)}
+.socials svg{width:16px;height:16px}
+
+.map{display:flex;flex-direction:column;overflow:hidden;min-height:460px}
+.map-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.map-head b{display:inline-flex;align-items:center;gap:8px;color:var(--ink);font-weight:500}
+.map-head b::before{content:"";width:8px;height:8px;background:var(--coral)}
+.map-frame{position:relative;flex:1;min-height:320px;background:
+  linear-gradient(var(--line) 1px,transparent 1px) 0 0/32px 32px,
+  linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/32px 32px,var(--surface-2)}
+.map-frame .loading{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.map-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .4s}
+.map-frame iframe.ready{opacity:1}
+[data-theme="dark"] .map-frame iframe{filter:invert(.9) hue-rotate(180deg) saturate(.55) brightness(.92) contrast(.95)}
+.map-foot{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:16px 18px;border-top:1px solid var(--line)}
+.map-foot b{display:block;font-size:15px;color:var(--ink);font-weight:600}
+.map-foot span{font-size:13.5px;color:var(--muted)}
+.map-actions{display:flex;gap:8px}
+
+/* =========================================================
+   18. ФУТЪР И ПЛАВАЩИ ЕЛЕМЕНТИ
+   ========================================================= */
+footer.site{background:var(--dark);color:var(--dark-muted);padding:88px 0 32px}
+.f-big{font-size:clamp(38px,7vw,104px);font-weight:700;line-height:.95;letter-spacing:-.05em;color:var(--dark-ink);margin-bottom:64px}
+.f-big span{color:#3A4560}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:40px 0;border-top:1px solid var(--dark-line);border-bottom:1px solid var(--dark-line)}
+.f-grid h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dark-text);margin-bottom:16px;font-weight:500}
+.f-grid ul{list-style:none;display:grid;gap:10px}
+.f-grid a{font-size:14.5px;transition:color .2s}
+.f-grid a:hover{color:#fff}
+.f-grid p{font-size:14.5px;max-width:320px;margin-top:16px}
+.f-grid .brand-text strong{color:#fff}
+.f-grid .brand-text small{color:var(--dark-muted)}
+.f-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:24px;font-family:var(--mono);font-size:12px}
+
+.toast{position:fixed;left:50%;bottom:24px;z-index:300;display:flex;align-items:center;gap:12px;max-width:calc(100% - 32px);padding:13px 18px;border-radius:var(--r);background:var(--ink);color:var(--bg);font-weight:600;font-size:14.5px;border-left:3px solid var(--spark);transform:translate(-50%,24px);opacity:0;pointer-events:none;transition:transform .3s var(--ease),opacity .3s}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.to-top{position:fixed;right:20px;bottom:20px;z-index:90;width:44px;height:44px;border-radius:var(--r);display:grid;place-items:center;background:var(--ink);color:var(--bg);opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .25s,transform .25s}
+.to-top.show{opacity:1;transform:none;pointer-events:auto}
+.to-top svg{width:18px;height:18px}
+
+/* =========================================================
+   19. АДАПТИВНОСТ
+   ========================================================= */
+@media (max-width:1240px){
+  .nav-links{position:fixed;top:var(--header-h);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 24px 16px;background:var(--surface);border-bottom:1px solid var(--line);opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s}
+  .nav-links.open{opacity:1;transform:none;pointer-events:auto}
+  header.site .nav-links a{color:var(--text)!important;padding:14px 0;font-size:16px;border-bottom:1px solid var(--line)}
+  header.site .nav-links a:last-child{border-bottom:0}
+  .nav-links a.active::after{display:none}
+  header.site .nav-links a.active{color:var(--volt-ink)!important}
+  .menu-btn{display:grid}
+}
+@media (max-width:1100px){
+  .hero-main{grid-template-columns:1fr;gap:44px}
+  .panel{max-width:560px}
+  .ini-grid,.events.grid{grid-template-columns:1fr 1fr}
+  .team-grid,.net-grid{grid-template-columns:1fr 1fr}
+  .com-wrap{grid-template-columns:1fr}
+  .com-tabs{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);scrollbar-width:none}
+  .com-tabs::-webkit-scrollbar{display:none}
+  .com-tab{flex:0 0 auto;border-bottom:0;border-right:1px solid var(--line)}
+  .com-tab::before{top:auto;left:0;right:0;width:auto;height:3px;transform:scaleX(0)}
+  .com-tab[aria-selected="true"]::before{transform:scaleX(1)}
+  .com-tab .n{display:none}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .flow{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .step{padding:18px 16px 22px}
+}
+@media (max-width:860px){
+  .section{padding:84px 0}
+  .sec-head{grid-template-columns:1fr;gap:14px;margin-bottom:40px}
+  .about-grid,.voice-grid,.rights-grid,.join-grid,.contact-grid,.tracker,.faq-grid{grid-template-columns:1fr}
+  .faq-grid{gap:0}
+  .faq-grid > div + div{border-top:0}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){border-left:0;padding-left:0}
+  .stat:nth-child(2),.stat:nth-child(4){padding-right:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .notices .container{grid-template-columns:1fr}
+  .notice,.notice+.notice{padding:14px 0;border-left:0}
+  .notice+.notice{border-top:1px solid var(--dark-line)}
+  .flow{grid-template-columns:1fr}
+  .step{border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:48px 1fr;gap:0 12px;align-items:baseline}
+  .step:first-child{border-top:0}
+  .step .n{grid-row:1/3}
+  .step .n span{display:none}
+  .step h3{margin:0 0 2px;font-size:17px}
+  .step::after{top:0;bottom:0;right:auto;width:3px;height:auto;transform:scaleY(0);transform-origin:top}
+  .step[aria-selected="true"]::after{transform:scaleY(1)}
+  .flow-detail{grid-template-columns:1fr;gap:14px;padding:24px}
+  .flow-detail .big{font-size:36px}
+  .flow-detail .time{text-align:left}
+  .row3{grid-template-columns:1fr 1fr}
+  .row3 .field:last-child{grid-column:1/-1}
+}
+@media (max-width:640px){
+  .container{width:calc(100% - 32px)}
+  :root{--header-h:62px}
+  .nav-links{padding:4px 16px 12px}
+  .brand-text small{display:none}
+  .hero-main{padding-top:calc(var(--header-h) + 44px);padding-bottom:44px}
+  .hero h1{font-size:clamp(34px,10.5vw,48px)}
+  .hero-meta{gap:6px 16px;font-size:11px}
+  .hero-actions .btn{flex:1 1 100%}
+  .countdown b{font-size:22px}
+  .stat{padding:24px 14px 22px}
+  .stat strong{font-size:32px}
+  .cells{grid-template-columns:1fr}
+  .cell{min-height:0}
+  .cell h3{margin-top:18px}
+  .cell.wide{grid-column:auto;flex-direction:column;gap:14px}
+  .ini-grid,.events.grid,.team-grid,.net-grid,.row2,.row3,.com-cols{grid-template-columns:1fr}
+  .row3 .field:last-child{grid-column:auto}
+  .event{grid-template-columns:64px 1fr;gap:16px;padding:18px}
+  .e-date{padding-left:10px}
+  .e-date b{font-size:26px}
+  .e-actions{grid-column:1 / -1;flex-direction:row;justify-content:space-between;align-items:center}
+  .com-panel{padding:26px 20px}
+  .box,.join-card{padding:22px}
+  .submit-row{grid-template-columns:1fr}
+  .submit-row .btn{width:100%}
+  .send-status .st-meta{display:none}
+  .acc .body{padding:0 4px 20px 44px}
+  .tracker{padding:22px}
+  .f-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .f-grid > div:first-child{grid-column:1 / -1}
+  .map{min-height:0}
+  .map-frame{min-height:300px}
+  .map-foot{grid-template-columns:1fr}
+  .map-actions .btn{flex:1}
+  .c-row{padding:18px 20px}
+  .c-foot{padding:18px 20px}
+  #navJoin span{display:none}
+  #navJoin{padding:9px 11px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Към съдържанието</a>
+
+<!-- ============ ИКОНИ (SVG спрайт) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-cal-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 13.5v5M9.5 16h5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+    <symbol id="i-mega" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.7V17c0 .6-.5 1-1 1.2C7.9 18.8 7 20.2 7 22M14 14.7V17c0 .6.5 1 1 1.2 1.1.6 2 2 2 3.8M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M3 7h18M6 7l-3 7a3 3 0 0 0 6 0L6 7zM18 7l-3 7a3 3 0 0 0 6 0l-3-7z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+    <symbol id="i-fb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ ХЕДЪР ============ -->
+<header class="site" id="header">
+  <div class="container">
+    <nav class="main" aria-label="Основна навигация">
+      <a href="#top" class="brand" aria-label="Ученически съвет ПГЕА — начало">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <rect width="48" height="48" rx="6" fill="#1F5BFF"/>
+          <path d="M6 16h7M6 32h5M42 20h-6M42 34h-8" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+          <rect x="4" y="14" width="4" height="4" fill="#fff" fill-opacity=".8"/><rect x="40" y="32" width="4" height="4" fill="#fff" fill-opacity=".8"/>
+          <path d="M27 8 14 27h9l-3 13 14-20h-9z" fill="#FFC83D"/>
+        </svg>
+        <span class="brand-text"><small>ПГЕА · София</small><strong>Ученически съвет</strong></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">За нас</a>
+        <a href="#events">Събития</a>
+        <a href="#initiatives">Инициативи</a>
+        <a href="#committees">Комисии</a>
+        <a href="#team">Екип</a>
+        <a href="#voice">Твоят глас</a>
+        <a href="#contact">Контакти</a>
+      </div>
+      <div class="nav-tools">
+        <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Смени светла/тъмна тема">
+          <svg class="moon"><use href="#i-moon"/></svg><svg class="sun"><use href="#i-sun"/></svg>
+        </button>
+        <a href="#join" class="btn btn-signal btn-sm" id="navJoin"><svg class="i"><use href="#i-bolt"/></svg><span>Включи се</span></a>
+        <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Меню" aria-expanded="false" aria-controls="navLinks"><svg><use href="#i-menu"/></svg></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <canvas id="circuit" aria-hidden="true"></canvas>
+  <div class="container hero-main">
+    <div class="hero-copy">
+      <div class="hero-meta reveal"><span>ПГЕА · София</span><span>Мандат <b>2026/27</b></span><span>1951 — 2026 · <b>75 години</b></span></div>
+      <h1 class="reveal reveal-d1">
+        <span class="line">Идеите имат енергия.</span>
+        <span class="line dim">Ние я превръщаме</span>
+        <span class="line dim">в <span class="hl">действие.</span></span>
+      </h1>
+      <p class="hero-lead reveal reveal-d2">Ученици, избрани от ученици. Слушаме, предлагаме, договаряме се с ръководството и <strong>отчитаме публично всяка стъпка</strong>. От 1951 г. ПГЕА създава инженери — ние създаваме училището, в което искаш да учиш.</p>
+      <div class="hero-actions reveal reveal-d3">
+        <a href="#idea" class="btn btn-signal">Предложи идея <svg class="i go"><use href="#i-arrow"/></svg></a>
+        <a href="#join" class="btn btn-ghost-dark">Стани част от Съвета</a>
+      </div>
+    </div>
+
+    <aside class="panel reveal reveal-d2" aria-label="Следващо събитие">
+      <div class="panel-row">
+        <div class="panel-top"><span>Следващо събитие</span><span id="nextSoon"></span></div>
+        <h3 id="nextTitle">—</h3>
+        <div class="meta" id="nextMeta"></div>
+      </div>
+      <div class="countdown" id="countdown" aria-hidden="true">
+        <div><b data-u="d">00</b><span>дни</span></div>
+        <div><b data-u="h">00</b><span>часа</span></div>
+        <div><b data-u="m">00</b><span>мин</span></div>
+        <div><b data-u="s">00</b><span>сек</span></div>
+      </div>
+      <div class="panel-row">
+        <div class="meter-title">Инициативи в процес</div>
+        <div id="panelMeter"></div>
+      </div>
+    </aside>
+  </div>
+  <div class="notices" aria-label="Съобщения">
+    <div class="container" id="notices"></div>
+  </div>
+</section>
+
+<!-- ============ СТАТИСТИКИ ============ -->
+<div class="stats-band">
+  <div class="container stats" id="stats">
+    <div class="stat c-spark"><strong><span data-count="75">75</span></strong><span>години история на ПГЕА</span></div>
+    <div class="stat c-volt"><strong><span data-count="0" id="statIni">0</span></strong><span>инициативи в мандата</span></div>
+    <div class="stat c-mint"><strong><span data-count="6">6</span></strong><span>комисии, отворени за всеки</span></div>
+    <div class="stat c-coral"><strong><span data-count="7">7</span><small>дни</small></strong><span>срок за отговор на всяка идея</span></div>
+  </div>
+</div>
+
+<!-- ============ ЗА НАС ============ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-label"><b>01</b>Кои сме</div>
+      <div><h2 class="sec-title">Не сме просто съвет.<br><em>Ние сме връзката.</em></h2></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <p>Между учениците и ръководството. Между една добра идея и нейното реализиране. Между това, което е ПГЕА днес, и това, което може да бъде утре.</p>
+        <p>От 1951 г. училището подготвя специалисти по електротехника, автоматика и компютърни мрежи. <strong>Духът на създаване, който учим в лабораториите, пренасяме и в училищния живот</strong> — проектираме, тестваме, подобряваме.</p>
+        <p>Съветът събира активни ученици от всички випуски и специалности. Представяме ученическата позиция, организираме събития и търсим практични решения на ежедневни проблеми.</p>
+        <blockquote class="quote">„Не обещаваме да решим всичко. Обещаваме да чуваме, да действаме — и да отчитаме публично какво сме направили.“<small>Ученическият съвет, мандат 2026/27</small></blockquote>
+      </div>
+      <div class="cells reveal reveal-d1">
+        <article class="cell c-volt"><div class="cell-top"><span class="n">01</span><svg><use href="#i-msg"/></svg></div><h3>Глас</h3><p>Всяко мнение заслужава да бъде чуто — независимо от класа и специалността.</p></article>
+        <article class="cell c-spark"><div class="cell-top"><span class="n">02</span><svg><use href="#i-bolt"/></svg></div><h3>Действие</h3><p>Превръщаме предложенията в конкретни стъпки, срокове и отговорници.</p></article>
+        <article class="cell c-cyan"><div class="cell-top"><span class="n">03</span><svg><use href="#i-users"/></svg></div><h3>Диалог</h3><p>Ученици, учители и ръководство търсят решения заедно, а не един срещу друг.</p></article>
+        <article class="cell c-mint"><div class="cell-top"><span class="n">04</span><svg><use href="#i-heart"/></svg></div><h3>Общност</h3><p>ПГЕА е повече от класна стая — тя е хората, с които растеш.</p></article>
+        <article class="cell wide c-violet"><svg><use href="#i-eye"/></svg><div><h3>Прозрачност</h3><p>Всяка идея има статус. Всеки ангажимент има срок. Всеки резултат е публичен — виж го в „Обещано → Изпълнено“.</p></div></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ КАК РАБОТИМ ============ -->
+<section class="section alt" id="how">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-label"><b>02</b>Как работим</div>
+      <div><h2 class="sec-title">От едно изречение<br><em>до реална промяна.</em></h2>
+      <p class="sec-lead">Всяка идея минава по една и съща верига — като ток през добре проектирана схема. Без изгубени предложения и без „ще видим“.</p></div>
+    </div>
+    <div class="flow reveal" id="flow" role="tablist" aria-label="Стъпки"></div>
+    <div class="flow-detail card" id="flowDetail" role="tabpanel" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ СЪБИТИЯ ============ -->
+<section class="section" id="events">
+  <div class="container">
+    <div class="sec-head reveal c-coral">
+      <div class="sec-label"><b>03</b>Календар</div>
+      <div><h2 class="sec-title">Какво <em>предстои.</em></h2>
+      <p class="sec-lead">Събрания, турнири, хакатони и благотворителност. Добави всяко събитие в календара на телефона си с едно докосване.</p></div>
+    </div>
+    <div class="events-bar reveal">
+      <div class="chip-row" id="eventFilters" role="group" aria-label="Филтър по категория"></div>
+      <div class="seg" role="group" aria-label="Изглед">
+        <button type="button" aria-pressed="true" data-view="list">Списък</button>
+        <button type="button" aria-pressed="false" data-view="grid">Карти</button>
+      </div>
+    </div>
+    <div class="events" id="eventList"></div>
+  </div>
+</section>
+
+<!-- ============ ИНИЦИАТИВИ ============ -->
+<section class="section alt" id="initiatives">
+  <div class="container">
+    <div class="sec-head reveal c-mint">
+      <div class="sec-label"><b>04</b>Обещано → Изпълнено</div>
+      <div><h2 class="sec-title">Отчитаме се <em>публично.</em></h2>
+      <p class="sec-lead">Доверието не се иска — то се заслужава. Тук виждаш всяка инициатива, нейния статус и следващата стъпка.</p></div>
+    </div>
+    <div class="tracker card reveal">
+      <div><h3>Напредък на мандата</h3><p>Обновява се след всяко общо събрание.</p></div>
+      <div>
+        <div class="tracker-bar" id="trackerBar"><i style="background:var(--mint)"></i><i style="background:var(--spark)"></i><i style="background:var(--violet)"></i></div>
+        <div class="tracker-legend" id="trackerLegend"></div>
+      </div>
+    </div>
+    <div class="chip-row reveal" id="iniFilters" style="margin-bottom:20px" role="group" aria-label="Филтър по статус"></div>
+    <div class="ini-grid" id="iniGrid"></div>
+  </div>
+</section>
+
+<!-- ============ КОМИСИИ ============ -->
+<section class="section" id="committees">
+  <div class="container">
+    <div class="sec-head reveal c-violet">
+      <div class="sec-label"><b>05</b>Комисии</div>
+      <div><h2 class="sec-title">Всеки талант <em>има място.</em></h2>
+      <p class="sec-lead">Шест екипа, шест посоки. Избери там, където енергията ти ще има най-голям ефект — можеш да си в повече от един.</p></div>
+    </div>
+    <div class="com-wrap reveal">
+      <div class="com-tabs" id="comTabs" role="tablist" aria-label="Комисии"></div>
+      <div class="com-panel" id="comPanel" role="tabpanel" tabindex="0"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ЕКИП ============ -->
+<section class="section alt" id="team">
+  <div class="container">
+    <div class="sec-head reveal c-cyan">
+      <div class="sec-label"><b>06</b>Екип</div>
+      <div><h2 class="sec-title">Хората <em>зад идеите.</em></h2>
+      <p class="sec-lead">Ръководството се избира от общото събрание с тайно гласуване за една учебна година. Свободните места чакат точно теб.</p></div>
+    </div>
+    <div class="team-grid" id="teamGrid"></div>
+    <div class="reps card reveal">
+      <div><b>Класни представители</b><p>Всяка паралелка от 8. до 12. клас излъчва по един представител — твоят пряк канал към Съвета.</p></div>
+      <a href="#join" class="btn btn-ghost btn-sm" data-join-role="Класен представител">Стани представител на класа <svg class="i go"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ТВОЯТ ГЛАС ============ -->
+<section class="section" id="voice">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-label"><b>07</b>Твоят глас</div>
+      <div><h2 class="sec-title">Предложи. Гласувай. <em>Промени.</em></h2>
+      <p class="sec-lead">Не е нужно да имаш готов план. Добрата идея започва с едно изречение — останалото правим заедно. Всяко съобщение отива директно в пощата на Съвета.</p></div>
+    </div>
+    <div class="voice-grid">
+      <div class="box card reveal" id="idea">
+        <div class="box-head"><h3>Предложи идея</h3><span class="tag c-volt">Отговор до 7 дни</span></div>
+        <p class="sub">Можеш да останеш анонимен. Полетата с ограничения се проверяват преди предаване.</p>
+        <form class="form" id="ideaForm" novalidate autocomplete="on">
+          <div class="field">
+            <label for="ideaTitle">Идеята ти с едно изречение <span class="hint">10–90 символа</span></label>
+            <input class="input" id="ideaTitle" name="title" minlength="10" maxlength="90" required placeholder="Напр. Зарядни станции за телефони в библиотеката">
+            <div class="field-foot"><span class="err-msg" data-err="title"></span><span class="counter" data-for="ideaTitle"></span></div>
+          </div>
+          <div class="field">
+            <span class="lbl">Категория</span>
+            <div class="pick" id="ideaCats" role="radiogroup" aria-label="Категория"></div>
+            <div class="field-foot"><span class="err-msg" data-err="cat"></span></div>
+          </div>
+          <div class="field">
+            <label for="ideaText">Разкажи повече <span class="hint">по желание · до 600 символа</span></label>
+            <textarea class="input" id="ideaText" name="details" maxlength="600" placeholder="Какъв проблем решава? Кой ще има полза? Как си го представяш?"></textarea>
+            <div class="field-foot"><span class="err-msg" data-err="details"></span><span class="counter" data-for="ideaText"></span></div>
+          </div>
+          <label class="check"><input type="checkbox" id="anon" name="anonymous"><span class="box-ic"><svg><use href="#i-check"/></svg></span><span>Изпрати анонимно — без име, клас и имейл</span></label>
+          <div class="row3" id="ideaWho">
+            <div class="field"><label for="ideaName">Име и фамилия</label><input class="input" id="ideaName" name="name" maxlength="60" placeholder="Иван Иванов" autocomplete="name"><div class="field-foot"><span class="err-msg" data-err="name"></span></div></div>
+            <div class="field"><label for="ideaClass">Клас</label><input class="input" id="ideaClass" name="class" maxlength="4" placeholder="11Б" autocomplete="off"><div class="field-foot"><span class="err-msg" data-err="class"></span></div></div>
+            <div class="field"><label for="ideaEmail">Имейл за отговор <span class="hint">по желание</span></label><input class="input" id="ideaEmail" name="email" type="email" maxlength="80" placeholder="ivan@example.com" autocomplete="email"><div class="field-foot"><span class="err-msg" data-err="email"></span></div></div>
+          </div>
+          <div class="hp" aria-hidden="true"><label>Не попълвай това поле<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+          <div class="submit-row">
+            <div class="send-status" data-state="idle" role="status" aria-live="polite"><span class="st-label">Статус</span><span class="st-dot"></span><span class="st-text">Готово за предаване</span><span class="st-meta">Enter ↵</span></div>
+            <button class="btn btn-primary" type="submit">Предай <kbd>↵</kbd></button>
+          </div>
+        </form>
+      </div>
+
+      <div style="display:grid;gap:20px">
+        <div class="box card reveal reveal-d1">
+          <div class="box-head"><h3 id="pollQ">Анкета</h3></div>
+          <p class="sub" id="pollSub"></p>
+          <form id="pollForm" novalidate>
+            <div class="poll-opts" id="pollOpts" role="radiogroup" aria-labelledby="pollQ"></div>
+            <div class="hp" aria-hidden="true"><input type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
+            <div class="submit-row" id="pollSubmit">
+              <div class="send-status" data-state="idle" role="status" aria-live="polite"><span class="st-label">Статус</span><span class="st-dot"></span><span class="st-text">Избери отговор</span><span class="st-meta">1 глас</span></div>
+              <button class="btn btn-primary" type="submit">Предай <kbd>↵</kbd></button>
+            </div>
+          </form>
+        </div>
+        <div class="box card reveal reveal-d2">
+          <div class="box-head"><h3>Идеи в работа</h3></div>
+          <p class="sub">Какво се случва с подадените идеи. Списъкът се обновява след всяко общо събрание.</p>
+          <div class="ideas" id="ideaBoard"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ПРАВА ============ -->
+<section class="section alt" id="rights">
+  <div class="container">
+    <div class="sec-head reveal c-volt">
+      <div class="sec-label"><b>08</b>Знай правата си</div>
+      <div><h2 class="sec-title">Правата ти <em>не са пожелание.</em></h2></div>
+    </div>
+    <div class="rights-grid">
+      <div class="reveal">
+        <p class="sec-lead" style="margin-top:0">Ученическото самоуправление не е „добра воля“ на някого — то е гарантирано от закона. Ето какво е важно да знаеш.</p>
+        <div class="law card">
+          <b>Правна основа</b>
+          <p>Закон за предучилищното и училищното образование (ЗПУО), чл. 171 — права на учениците; Правилник за дейността на ПГЕА. Ако смяташ, че правата ти са нарушени — пиши ни, ще те насочим.</p>
+        </div>
+      </div>
+      <div class="acc reveal reveal-d1">
+        <details class="c-volt"><summary><span class="num">01</span>Да бъдеш информиран<span class="plus" aria-hidden="true"></span></summary><div class="body">За правата и задълженията си, за учебната програма, за критериите за оценяване и за решенията, които засягат учениците.</div></details>
+        <details class="c-cyan"><summary><span class="num">02</span>Да изразяваш мнение и да предлагаш<span class="plus" aria-hidden="true"></span></summary><div class="body">Имаш право да даваш мнения и предложения за училищните дейности, включително за избираемите и факултативните часове.</div></details>
+        <details class="c-violet"><summary><span class="num">03</span>Да участваш в самоуправлението<span class="plus" aria-hidden="true"></span></summary><div class="body">Да избираш и да бъдеш избиран в органите на класа и училището и чрез тях да участваш в обсъждането на въпроси, засягащи училищната общност.</div></details>
+        <details class="c-mint"><summary><span class="num">04</span>Да получаваш подкрепа<span class="plus" aria-hidden="true"></span></summary><div class="body">Консултации по учебните предмети, кариерно ориентиране и психологическа подкрепа, когато имаш нужда от тях.</div></details>
+        <details class="c-spark"><summary><span class="num">05</span>Да бъдеш поощряван<span class="plus" aria-hidden="true"></span></summary><div class="body">За постижения в учебната, извънкласната и обществената дейност — включително за участие в проекти и състезания.</div></details>
+        <details class="c-coral"><summary><span class="num">06</span>Да участваш в извънкласни дейности<span class="plus" aria-hidden="true"></span></summary><div class="body">Клубове, проекти, състезания, доброволчество — училището е място не само за уроци, а и за интереси.</div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ВКЛЮЧИ СЕ ============ -->
+<section class="section join" id="join">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-label"><b>09</b>Включи се</div>
+      <div></div>
+    </div>
+    <div class="join-grid">
+      <div class="reveal">
+        <h2>ПГЕА има нужда от хора, които <em>действат.</em></h2>
+        <p class="join-lead">Не ти трябва опит. Трябва ти желание. Три кратки стъпки и заявката ти е при нас.</p>
+        <ul class="perks">
+          <li><span class="n">01</span><span><b>Реален опит</b> — лидерство, екипна работа и проекти, които стигат до края.</span></li>
+          <li><span class="n">02</span><span><b>Директен глас</b> — пред директора и в дискусиите, които засягат учениците.</span></li>
+          <li><span class="n">03</span><span><b>Екип от всички випуски</b> — приятели, ментори и контакти отвъд класа.</span></li>
+          <li><span class="n">04</span><span><b>Портфолио</b> — конкретни резултати, които да покажеш в CV-то си.</span></li>
+        </ul>
+      </div>
+      <div class="join-card reveal reveal-d1">
+        <div class="steps-bar" id="stepsBar">
+          <div class="cur"><i></i><span>1 · За теб</span></div>
+          <div><i></i><span>2 · Интереси</span></div>
+          <div><i></i><span>3 · Мотивация</span></div>
+        </div>
+        <form id="joinForm" novalidate>
+          <div class="jstep on" data-step="1">
+            <div class="field"><label for="jName">Име и фамилия <span class="hint">задължително</span></label><input class="input" id="jName" name="name" required maxlength="60" placeholder="Мария Георгиева" autocomplete="name"><div class="field-foot"><span class="err-msg" data-err="name"></span></div></div>
+            <div class="row2">
+              <div class="field"><label for="jClass">Клас</label><input class="input" id="jClass" name="class" required maxlength="4" placeholder="10Б" autocomplete="off"><div class="field-foot"><span class="err-msg" data-err="class"></span></div></div>
+              <div class="field"><label for="jEmail">Имейл</label><input class="input" id="jEmail" name="email" type="email" required maxlength="80" placeholder="maria@example.com" autocomplete="email"><div class="field-foot"><span class="err-msg" data-err="email"></span></div></div>
+            </div>
+          </div>
+          <div class="jstep" data-step="2">
+            <div class="field"><span class="lbl">Кои комисии те привличат? <span class="hint">от 1 до 3</span></span><div class="pick" id="joinPick"></div><div class="field-foot"><span class="err-msg" data-err="committees"></span></div></div>
+            <div class="field"><label for="jRole">Как искаш да участваш?</label>
+              <select class="input" id="jRole" name="role">
+                <option>Член на комисия</option><option>Класен представител</option><option>Доброволец за конкретно събитие</option><option>Кандидат за ръководна позиция</option>
+              </select>
+            </div>
+          </div>
+          <div class="jstep" data-step="3">
+            <div class="field"><label for="jWhy">Защо искаш да се включиш? <span class="hint">40–500 символа</span></label><textarea class="input" id="jWhy" name="motivation" required maxlength="500" placeholder="Няколко изречения са напълно достатъчни."></textarea><div class="field-foot"><span class="err-msg" data-err="motivation"></span><span class="counter" data-for="jWhy"></span></div></div>
+            <div class="field"><label for="jSkills">С какво можеш да помогнеш? <span class="hint">по желание</span></label><input class="input" id="jSkills" name="skills" maxlength="120" placeholder="Дизайн, програмиране, организация, фотография…"><div class="field-foot"><span class="err-msg" data-err="skills"></span></div></div>
+            <label class="check" id="jConsentWrap"><input type="checkbox" id="jConsent" name="consent"><span class="box-ic"><svg><use href="#i-check"/></svg></span><span>Съгласен/на съм данните ми да се използват само от Ученическия съвет за връзка с мен.</span></label>
+          </div>
+          <div class="hp" aria-hidden="true"><input type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
+          <div class="join-nav">
+            <button type="button" class="btn btn-ghost" id="jBack" style="visibility:hidden"><svg class="i"><use href="#i-arrow-left"/></svg>Назад</button>
+            <button type="button" class="btn btn-primary" id="jNext">Напред <svg class="i go"><use href="#i-arrow"/></svg></button>
+          </div>
+          <div class="submit-row" style="grid-template-columns:1fr">
+            <div class="send-status" id="joinStatus" data-state="idle" role="status" aria-live="polite"><span class="st-label">Статус</span><span class="st-dot"></span><span class="st-text">Стъпка 1 от 3</span><span class="st-meta">Enter ↵ — напред</span></div>
+          </div>
+        </form>
+        <div class="success" id="joinSuccess" role="status">
+          <div class="ok"><svg><use href="#i-check"/></svg></div>
+          <h3>Заявката е предадена.</h3>
+          <p>Получихме я. Ще се свържем с теб преди следващото общо събрание.</p>
+          <div class="ref" id="joinRef"></div>
+          <button type="button" class="btn btn-ghost" id="jAgain">Нова заявка</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ЧЗВ ============ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="sec-head reveal c-spark">
+      <div class="sec-label"><b>10</b>Въпроси</div>
+      <div><h2 class="sec-title">Често <em>питат.</em></h2></div>
+    </div>
+    <div class="faq-grid reveal">
+      <div class="acc">
+        <details><summary><span class="num">Q1</span>Кой може да стане член на Съвета?<span class="plus" aria-hidden="true"></span></summary><div class="body">Всеки ученик в ПГЕА. Класовете излъчват представители, а комисиите са отворени за всички, които искат да работят.</div></details>
+        <details><summary><span class="num">Q2</span>Как се избира ръководството?<span class="plus" aria-hidden="true"></span></summary><div class="body">На общо събрание в началото на учебната година, с тайно гласуване. Мандатът е една учебна година.</div></details>
+        <details><summary><span class="num">Q3</span>Какво става с моята идея?<span class="plus" aria-hidden="true"></span></summary><div class="body">До 7 дни съответната комисия я разглежда и получаваш отговор. Ако бъде приета, влиза в „Обещано → Изпълнено“ със срок и отговорник.</div></details>
+      </div>
+      <div class="acc">
+        <details><summary><span class="num">Q4</span>Мога ли да подам идея анонимно?<span class="plus" aria-hidden="true"></span></summary><div class="body">Да. Отбележи „Изпрати анонимно“ във формата. Така няма как да ти върнем личен отговор, но статусът ще е видим на сайта.</div></details>
+        <details><summary><span class="num">Q5</span>Колко време отнема участието?<span class="plus" aria-hidden="true"></span></summary><div class="body">Общо събрание веднъж на две седмици плюс работа по проекти, които сам избираш. Ученето винаги е на първо място.</div></details>
+        <details><summary><span class="num">Q6</span>Как Съветът работи с ръководството?<span class="plus" aria-hidden="true"></span></summary><div class="body">Чрез редовни срещи с директора и чрез участие по покана в обсъжданията на Педагогическия съвет по въпроси, засягащи учениците.</div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ МРЕЖА И КОНТАКТИ ============ -->
+<section class="section alt" id="contact">
+  <div class="container">
+    <div class="sec-head reveal c-cyan">
+      <div class="sec-label"><b>11</b>Мрежа и контакти</div>
+      <div><h2 class="sec-title">Не сме сами. <em>Част сме от мрежа.</em></h2>
+      <p class="sec-lead">Ученическото самоуправление в България е движение. Учим се от другите съвети и споделяме добрите практики.</p></div>
+    </div>
+    <div class="net-grid">
+      <a class="net card accent c-volt reveal" href="https://www.studentcouncilbg.org" target="_blank" rel="noopener"><span class="abbr">НУП</span><h3>Национален ученически парламент</h3><p>Обединява ученически съвети от цялата страна.</p><span class="go">studentcouncilbg.org <svg><use href="#i-out"/></svg></span></a>
+      <a class="net card accent c-coral reveal reveal-d1" href="https://www.sofiastudentcouncil.com/" target="_blank" rel="noopener"><span class="abbr">СУС</span><h3>Софийски ученически съвет</h3><p>Гласът на учениците в столицата.</p><span class="go">sofiastudentcouncil.com <svg><use href="#i-out"/></svg></span></a>
+      <a class="net card accent c-mint reveal reveal-d2" href="https://nmf.bg/" target="_blank" rel="noopener"><span class="abbr">НМФ</span><h3>Национален младежки форум</h3><p>Младежка политика, обучения и проекти.</p><span class="go">nmf.bg <svg><use href="#i-out"/></svg></span></a>
+      <a class="net card accent c-spark reveal reveal-d3" href="https://pgea.bg/" target="_blank" rel="noopener"><span class="abbr">ПГЕА</span><h3>Официален сайт на училището</h3><p>Новини, прием, документи и специалности.</p><span class="go">pgea.bg <svg><use href="#i-out"/></svg></span></a>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card card reveal">
+        <div class="c-row c-coral"><span class="ic"><svg><use href="#i-pin"/></svg></span><div><span class="k">Адрес</span><b>ПГЕА</b><span class="v">бул. „Овча купел“ 1, 1618 София</span></div></div>
+        <div class="c-row c-volt"><span class="ic"><svg><use href="#i-clock"/></svg></span><div><span class="k">Приемно време на Съвета</span><b id="officeHours"></b><span class="v" id="officePlace"></span></div></div>
+        <div class="c-row c-mint"><span class="ic"><svg><use href="#i-mail"/></svg></span><div><span class="k">Пиши на Съвета</span><b>Директно в пощата ни</b><a href="#idea" id="emailLink">Към формата за съобщения →</a></div></div>
+        <div class="c-row c-violet"><span class="ic"><svg><use href="#i-phone"/></svg></span><div><span class="k">Училище · канцелария</span><a href="tel:+35928956910">+359 2 895 69 10</a><br><a href="tel:+35928956933">+359 2 895 69 33</a></div></div>
+        <div class="c-foot"><div class="socials" id="socials"></div></div>
+      </div>
+
+      <div class="map card reveal reveal-d1">
+        <div class="map-head"><b>ПГЕА · Карта</b><span>42.6720° N · 23.2680° E</span></div>
+        <div class="map-frame" id="mapFrame">
+          <div class="loading">Картата се зарежда…</div>
+          <!-- src се задава от JS, когато секцията приближи екрана (по-бързо първо зареждане) -->
+          <iframe id="mapIframe" title="Карта: ПГЕА, бул. „Овча купел“ 1, София" data-src="https://maps.google.com/maps?q=42.6720495,23.2679952&amp;z=16&amp;hl=bg&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <div class="map-foot">
+          <div><b>бул. „Овча купел“ 1, 1618 София</b><span>Професионална гимназия по електротехника и автоматика</span></div>
+          <div class="map-actions">
+            <a class="btn btn-primary btn-sm" href="https://www.google.com/maps/dir/?api=1&amp;destination=42.6720495,23.2679952" target="_blank" rel="noopener"><svg class="i"><use href="#i-route"/></svg>Маршрут</a>
+            <a class="btn btn-ghost btn-sm" href="https://www.google.com/maps/search/?api=1&amp;query=42.6720495%2C23.2679952" target="_blank" rel="noopener">Google Maps <svg class="i"><use href="#i-out"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ ФУТЪР ============ -->
+<footer class="site">
+  <div class="container">
+    <div class="f-big" aria-hidden="true">Енергия <span>за промяна.</span></div>
+    <div class="f-grid">
+      <div>
+        <a href="#top" class="brand"><svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="6" fill="#1F5BFF"/><path d="M27 8 14 27h9l-3 13 14-20h-9z" fill="#FFC83D"/></svg><span class="brand-text"><small>ПГЕА · София</small><strong>Ученически съвет</strong></span></a>
+        <p>Направено от ученици за ученици. Сайтът се поддържа от комисия „Иновации и технологии“.</p>
+      </div>
+      <div><h4>Съветът</h4><ul><li><a href="#about">За нас</a></li><li><a href="#how">Как работим</a></li><li><a href="#team">Екип</a></li><li><a href="#committees">Комисии</a></li></ul></div>
+      <div><h4>Участвай</h4><ul><li><a href="#idea">Предложи идея</a></li><li><a href="#events">Събития</a></li><li><a href="#join">Кандидатствай</a></li><li><a href="#rights">Знай правата си</a></li></ul></div>
+      <div><h4>Мрежа</h4><ul><li><a href="https://www.studentcouncilbg.org" target="_blank" rel="noopener">НУП</a></li><li><a href="https://www.sofiastudentcouncil.com/" target="_blank" rel="noopener">СУС</a></li><li><a href="https://nmf.bg/" target="_blank" rel="noopener">НМФ</a></li><li><a href="https://pgea.bg/" target="_blank" rel="noopener">ПГЕА</a></li></ul></div>
+    </div>
+    <div class="f-bottom"><span>© <span id="year">2026</span> Ученически съвет · ПГЕА София</span><span>бул. „Овча купел“ 1 · 1618 София</span></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+<a href="#top" class="to-top" id="toTop" aria-label="Към началото"><svg><use href="#i-up"/></svg></a>
+
+<script>
+/* =====================================================================
+   НАСТРОЙКИ — редактирай тук, без да пипаш останалия код
+   ===================================================================== */
+const CONFIG = {
+  /* Всички форми (идеи, анкета, заявки) се изпращат на този имейл чрез FormSubmit.
+     ВАЖНО: при първото изпращане FormSubmit праща писмо „Activate Form“ на адреса —
+     отвори го и потвърди веднъж. След това всичко пристига автоматично.
+     По желание: след активирането FormSubmit дава случаен код (напр. 'a1b2c3…') —
+     сложи го вместо имейла в formEndpoint, за да не се вижда адресът в кода на сайта. */
+  mailTo: 'vladimirkol459@abv.bg',
+  formEndpoint: 'https://formsubmit.co/ajax/vladimirkol459@abv.bg',
+
+  officeHours: 'Всяка сряда · голямото междучасие',
+  officePlace: '',                      // напр. 'Стая 214' — празно = не се показва
+
+  socials: [                            // сложи реалните линкове; празен url = бутонът не се показва
+    { name:'Instagram', url:'', icon:'ig' },
+    { name:'Facebook',  url:'', icon:'fb' }
+  ],
+
+  /* Ограничения срещу спам и случайни повторни изпращания */
+  limits: { cooldownSec: 60, perDay: 5, minFillSec: 3 }
+};
+
+/* =====================================================================
+   СЪДЪРЖАНИЕ — ЗАМЕНИ с реалните данни на Съвета
+   Часовете са по българско време (Europe/Sofia).
+   ===================================================================== */
+const CATS = { 'Съвет':'volt', 'Общност':'mint', 'Спорт':'coral', 'Технологии':'cyan', 'Кариера':'spark', 'Култура':'violet' };
+
+const EVENTS = [
+  { date:'2026-09-30', start:'13:30', end:'15:00', cat:'Съвет',      title:'Първо общо събрание за мандата', place:'Актова зала', desc:'Избор на ръководство и комисии, приоритети за първия срок. Всеки ученик е добре дошъл.' },
+  { date:'2026-10-09', start:'10:00', end:'14:00', cat:'Общност',    title:'Ден на отворените идеи', place:'Фоайе', desc:'Щандове на всеки випуск: покажи идеята си, събери подписи, намери съмишленици.' },
+  { date:'2026-10-22', start:'14:00', end:'17:00', cat:'Спорт',      title:'Междукласен турнир по волейбол', place:'Физкултурен салон', desc:'Отбори от всички паралелки. Записване до 16 октомври при класния представител.' },
+  { date:'2026-10-30', start:'11:00', end:'12:30', cat:'Култура',    title:'„Будителите на ПГЕА“', place:'Библиотека', desc:'Срещи с учители и възпитаници по повод Деня на народните будители.' },
+  { date:'2026-11-20', start:'12:00', end:'13:00', cat:'Съвет',      title:'Отворен час „Знай правата си“', place:'Актова зала', desc:'По повод Международния ден на детето — права, отговорности и как да ги защитиш.' },
+  { date:'2026-11-27', start:'13:00', end:'15:30', cat:'Кариера',    title:'Кариерен ден: инженери от индустрията', place:'Актова зала', desc:'Възпитаници на ПГЕА разказват къде работят и какво търсят работодателите.' },
+  { date:'2026-12-11', start:'10:00', end:'15:00', cat:'Общност',    title:'Коледен благотворителен базар', place:'Фоайе', desc:'Ръчно изработени подаръци и сладки. Всички средства отиват за благотворителна кауза.' },
+  { date:'2027-01-29', start:'09:00', end:'18:00', cat:'Технологии', title:'VoltHack — училищен хакатон', place:'Компютърни зали', desc:'Отбори до 4 души, 9 часа, една задача: реши реален проблем на училището с код и електроника.' },
+  { date:'2027-03-01', start:'11:00', end:'13:00', cat:'Култура',    title:'Работилница за мартеници', place:'Фоайе', desc:'Правим мартеници заедно и ги подаряваме на учители и съученици.' }
+];
+
+const INITIATIVES = [
+  { status:'done',     p:100, c:'cyan',   com:'Иновации',    title:'Arduino клуб: ученици учат ученици', desc:'Седмични работилници, водени от ученици от горните класове за 8. и 9. клас.', next:'Стартира втори поток през февруари.' },
+  { status:'progress', p:65,  c:'mint',   com:'Среда',       title:'Зона за отдих във фоайето', desc:'Място за почивка и разговори между часовете — проектът е одобрен от ръководството.', next:'Доставка на мебелите.' },
+  { status:'done',     p:100, c:'coral',  com:'Комуникации', title:'Онлайн кутия за идеи', desc:'Този сайт: всяка идея се подава онлайн и получава отговор до 7 дни.', next:'Месечен отчет за подадените идеи.' },
+  { status:'progress', p:40,  c:'spark',  com:'Кариера',     title:'Кариерен ден с възпитаници', desc:'Инженери, програмисти и предприемачи, завършили ПГЕА, се връщат в училище.', next:'Потвърждаване на гостите.' },
+  { status:'progress', p:50,  c:'coral',  com:'Спорт',       title:'Междукласна лига', desc:'Целогодишно класиране по футбол и волейбол между паралелките.', next:'Изготвяне на графика за пролетта.' },
+  { status:'planned',  p:15,  c:'cyan',   com:'Иновации',    title:'Дигитално табло за промени в програмата', desc:'Екран във фоайето с актуални промени, замествания и съобщения.', next:'Среща с ръководството за одобрение.' },
+  { status:'planned',  p:10,  c:'violet', com:'Култура',     title:'Юбилейна седмица „75 години ПГЕА“', desc:'Изложба, концерт и среща на випуските за годишнината на училището.', next:'Събиране на идеи от всички класове.' },
+  { status:'planned',  p:5,   c:'violet', com:'Медии',       title:'Ученически подкаст „Волтаж“', desc:'Разговори с ученици, учители и гости за живота в и извън училище.', next:'Търсим водещи и техник.' }
+];
+
+const STEPS = [
+  { c:'volt',   title:'Идея',      short:'Подаваш предложение', text:'Подаваш идея през сайта, чрез класния си представител или лично в приемното време на Съвета.', items:['Онлайн форма','Класен представител','Анонимно по желание'], time:'Ден 0' },
+  { c:'cyan',   title:'Преглед',   short:'Комисията я разглежда', text:'Съответната комисия уточнява детайлите, преценява нужните ресурси и ти дава обратна връзка.', items:['Уточняване с автора','Оценка на ресурсите','Обратна връзка'], time:'до 7 дни' },
+  { c:'violet', title:'Гласуване', short:'Общото събрание решава', text:'Общото събрание гласува. Идеите с най-голяма подкрепа влизат в дневния ред с приоритет.', items:['Открито обсъждане','Гласуване','Приоритет по подкрепа'], time:'на 2 седмици' },
+  { c:'spark',  title:'Действие',  short:'Отговорник и срок', text:'Определяме отговорник, срок и партньори. Когато е нужно — представяме идеята пред ръководството.', items:['Отговорник','Срок','Среща с ръководството'], time:'по план' },
+  { c:'mint',   title:'Отчет',     short:'Публичен резултат', text:'Резултатът се публикува в „Обещано → Изпълнено“ — независимо дали е успех, или урок за следващия път.', items:['Публичен статус','Снимки и резултати','Урок за напред'], time:'публично' }
+];
+
+const COMMITTEES = [
+  { id:'events', c:'violet', icon:'music',  name:'Събития и култура', text:'Превръща календара в поредица от моменти, които се помнят — от първия учебен ден до юбилея на училището.', does:['Годишен календар на събитията','Празници, концерти и тематични дни','Юбилейни инициативи „75 години ПГЕА“'], wants:['Организатори','Водещи и артисти','Фотографи и видеографи'] },
+  { id:'tech',   c:'cyan',   icon:'cpu',    name:'Иновации и технологии', text:'Инженерното сърце на Съвета. Използва това, което учим в лабораториите, за да решава реални проблеми на училището.', does:['Хакатони и технически работилници','Дигитални решения за училището','Поддръжка на сайта и онлайн инструментите'], wants:['Програмисти','Електроници и автоматици','Мрежови администратори'] },
+  { id:'comms',  c:'coral',  icon:'mega',   name:'Комуникации и медии', text:'Гарантира, че всеки ученик знае какво се случва — и че гласът на Съвета се чува ясно.', does:['Социални мрежи и сайт','Плакати, бюлетин и табла','Кампании за информираност'], wants:['Дизайнери','Автори на текстове','Създатели на видео'] },
+  { id:'community', c:'mint', icon:'heart', name:'Общност и доброволчество', text:'Свързва випуските и отваря училището към света около него — с добри дела, менторство и грижа.', does:['Благотворителни кампании','Менторство между випуските','Екологични инициативи'], wants:['Доброволци','Ментори','Хора с голямо сърце'] },
+  { id:'edu',    c:'volt',   icon:'scale',  name:'Образование и права', text:'Следи учебният процес да е справедлив и разбираем и всеки ученик да познава правата си.', does:['Обратна връзка за учебния процес','Групи за взаимопомощ преди изпити','Кампания „Знай правата си“'], wants:['Ментори по предмети','Дебатьори','Внимателни слушатели'] },
+  { id:'sport',  c:'spark',  icon:'trophy', name:'Спорт и здраве', text:'Движение, отборен дух и здравословни навици — защото енергията започва от тялото.', does:['Междукласни турнири и лига','Участие в ученически първенства','Кампании за здравословен начин на живот'], wants:['Спортисти','Съдии и организатори','Фенове с енергия'] }
+];
+
+const TEAM = [
+  { name:'Владимир', role:'Председател', c:'volt', text:'Представлява учениците пред ръководството и координира работата на комисиите.' },
+  { vacant:true, role:'Заместник-председател', c:'violet', text:'Помага в координацията и замества председателя. Избира се на общото събрание.' },
+  { vacant:true, role:'Секретар', c:'cyan', text:'Води протоколите, календара и документацията на Съвета.' },
+  { vacant:true, role:'Координатор на комисиите', c:'mint', text:'Следи сроковете и свързва комисиите помежду им.' }
+];
+
+/* Анкета — всеки глас пристига по имейл; един глас от браузър */
+const POLL = {
+  id:'2026-10',
+  q:'Кое да е приоритет №1 през първия срок?',
+  closes:'2026-10-15',                   // последен ден за гласуване
+  results:'Резултатите се обявяват на общото събрание след края на анкетата.',
+  options:[ ['Зона за отдих във фоайето','mint'], ['Междукласна лига','coral'], ['VoltHack хакатон','cyan'], ['Кариерен ден','spark'] ]
+};
+
+const IDEA_CATS = [ ['Среда','mint'], ['Събития','violet'], ['Технологии','cyan'], ['Образование','volt'], ['Спорт','spark'], ['Друго','coral'] ];
+
+/* Табло „Идеи в работа“ — обновявай след всяко събрание */
+const IDEA_ST = { accepted:['Приета','mint'], agenda:['В дневния ред','volt'], review:['Разглежда се','spark'], declined:['Отхвърлена','coral'] };
+const IDEA_BOARD = [
+  { title:'Микровълнова фурна за учениците', cat:'Среда', status:'agenda', note:'Общо събрание, 30 септември' },
+  { title:'Музика в голямото междучасие в петък', cat:'Събития', status:'accepted', note:'Пилотно от октомври' },
+  { title:'Зарядни станции за телефони в библиотеката', cat:'Технологии', status:'review', note:'Комисия „Иновации“ проучва варианти' },
+  { title:'Менторство: 12. клас помага на 8. клас', cat:'Образование', status:'accepted', note:'Стартира заедно с Arduino клуба' },
+  { title:'Велостойка пред входа на училището', cat:'Среда', status:'review', note:'Очаква становище от ръководството' }
+];
+
+const NOTICES = [
+  ['НОВО','Идеите се подават онлайн — отговор до 7 дни','spark','#idea'],
+  ['ИЗБОРИ','Кандидатствай за ръководството на Съвета','coral','#join'],
+  ['АНКЕТА','Гласувай за приоритет №1 на първия срок','mint','#voice']
+];
+
+/* =====================================================================
+   ПОМОЩНИ ФУНКЦИИ
+   ===================================================================== */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const icon = (id, cls='i') => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+const MONTHS_S = ['ЯНУ','ФЕВ','МАР','АПР','МАЙ','ЮНИ','ЮЛИ','АВГ','СЕП','ОКТ','НОЕ','ДЕК'];
+const MONTHS_L = ['януари','февруари','март','април','май','юни','юли','август','септември','октомври','ноември','декември'];
+const DAYS = ['неделя','понеделник','вторник','сряда','четвъртък','петък','събота'];
+const plural = (n, one, many) => n === 1 ? one : many;
+
+/* Време по София — коректно за посетители от всяка часова зона (лятно/зимно време по правилата на ЕС) */
+function lastSundayUTC(y, m){ const d = new Date(Date.UTC(y, m + 1, 0, 1)); d.setUTCDate(d.getUTCDate() - d.getUTCDay()); return d.getTime(); }
+function sofia(dateStr, time='00:00'){
+  const [y, m, d] = dateStr.split('-').map(Number), [h, mi] = time.split(':').map(Number);
+  const wall = Date.UTC(y, m - 1, d, h, mi), probe = wall - 3 * 36e5;
+  const dst = probe >= lastSundayUTC(y, 2) && probe < lastSundayUTC(y, 9);
+  return new Date(wall - (dst ? 3 : 2) * 36e5);
+}
+function parts(dateStr){ const [y, m, d] = dateStr.split('-').map(Number); return { y, m: m - 1, d, dow: new Date(Date.UTC(y, m - 1, d)).getUTCDay() }; }
+const evStart = e => sofia(e.date, e.start), evEnd = e => sofia(e.date, e.end);
+function daysUntil(dateStr){
+  const today = new Date().toLocaleDateString('sv-SE', { timeZone:'Europe/Sofia' }); // YYYY-MM-DD
+  return Math.round((Date.UTC(...dateStr.split('-').map((v, i) => i === 1 ? v - 1 : +v)) - Date.UTC(...today.split('-').map((v, i) => i === 1 ? v - 1 : +v))) / 864e5);
+}
+
+function toast(msg){
+  const t = $('#toast'); $('#toastMsg').textContent = msg;
+  t.classList.add('show'); clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+/* =====================================================================
+   ТЕМА, НАВИГАЦИЯ, СКРОЛ
+   ===================================================================== */
+$('#themeToggle').addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try{ localStorage.setItem('uchs-theme', next); }catch(e){}
+});
+
+const header = $('#header'), hero = $('#top'), toTop = $('#toTop');
+const menuBtn = $('#menuBtn'), navLinks = $('#navLinks');
+function setMenu(open){
+  navLinks.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.innerHTML = `<svg><use href="#i-${open ? 'x' : 'menu'}"/></svg>`;
+  updateHeader();
+}
+menuBtn.addEventListener('click', e => { e.stopPropagation(); setMenu(!navLinks.classList.contains('open')); });
+$$('a', navLinks).forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('click', e => { if(navLinks.classList.contains('open') && !navLinks.contains(e.target)) setMenu(false); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && navLinks.classList.contains('open')){ setMenu(false); menuBtn.focus(); } });
+
+function updateHeader(){
+  const y = scrollY;
+  header.classList.toggle('scrolled', navLinks.classList.contains('open') || y > hero.offsetHeight - 80);
+  toTop.classList.toggle('show', y > 900);
+}
+let scrollQueued = false;
+addEventListener('scroll', () => {
+  if(scrollQueued) return; scrollQueued = true;
+  requestAnimationFrame(() => { scrollQueued = false; updateHeader(); });
+}, { passive:true });
+addEventListener('resize', updateHeader, { passive:true });
+updateHeader();
+
+/* Активен линк в менюто */
+const linkMap = new Map($$('a', navLinks).map(a => [a.getAttribute('href').slice(1), a]));
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if(!en.isIntersecting) return;
+    $$('a', navLinks).forEach(a => a.classList.remove('active'));
+    const a = linkMap.get(en.target.id); if(a) a.classList.add('active');
+  });
+}, { rootMargin:'-45% 0px -50% 0px' });
+$$('main section[id]').forEach(s => spy.observe(s));
+
+/* Поява при скрол (еднократно) + запълване на ленти */
+const revealIO = new IntersectionObserver(entries => {
+  entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); revealIO.unobserve(en.target); } });
+}, { threshold:.1, rootMargin:'0px 0px -40px 0px' });
+function observeReveal(root=document){ $$('.reveal:not(.in)', root).forEach(el => revealIO.observe(el)); }
+
+const barIO = new IntersectionObserver(entries => {
+  entries.forEach(en => { if(en.isIntersecting){ en.target.style.width = en.target.dataset.w; barIO.unobserve(en.target); } });
+}, { threshold:.2 });
+function observeBars(root=document){ $$('[data-w]', root).forEach(el => reduced ? (el.style.width = el.dataset.w) : barIO.observe(el)); }
+
+/* =====================================================================
+   HERO: ПЕЧАТНА ПЛАТКА (оптимизиран canvas)
+   – статичните писти се рисуват веднъж в отделен слой
+   – сиянието е предварително рендериран спрайт (без градиенти на всеки кадър)
+   – ~30 кадъра/сек., спира извън екрана и в неактивен таб
+   ===================================================================== */
+(function circuit(){
+  const cv = $('#circuit'); if(!cv || !cv.getContext) return;
+  const ctx = cv.getContext('2d');
+  const COLORS = ['#6F95FF','#2BB8D8','#FFC83D','#8F78FF'];
+  const G = 32, DIRS = [[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1],[1,-1]];
+  let W = 0, H = 0, dpr = 1, traces = [], hot = [], pulses = [], layer, sprites = {}, running = false, raf = 0, last = 0, maxPulses = 10;
+
+  COLORS.forEach(c => {
+    const s = document.createElement('canvas'); s.width = s.height = 32;
+    const g = s.getContext('2d'), gr = g.createRadialGradient(16,16,0,16,16,16);
+    gr.addColorStop(0, c); gr.addColorStop(.25, c + 'AA'); gr.addColorStop(1, c + '00');
+    g.fillStyle = gr; g.fillRect(0,0,32,32); sprites[c] = s;
+  });
+
+  function build(){
+    dpr = Math.min(devicePixelRatio || 1, 1.5);
+    W = cv.clientWidth; H = cv.clientHeight; if(!W || !H) return;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    const cols = Math.ceil(W / G) + 1, rows = Math.ceil(H / G) + 1, used = new Set();
+    const n = Math.max(18, Math.min(70, Math.round(W * H / 18000)));
+    maxPulses = W < 700 ? 5 : 10;
+    traces = [];
+    for(let i = 0; i < n * 3 && traces.length < n; i++){
+      let x = Math.floor(Math.random() * cols), y = Math.floor(Math.random() * rows);
+      if(used.has(x + ',' + y)) continue;
+      let d = Math.floor(Math.random() * 4) * 2;
+      const pts = [[x, y]]; used.add(x + ',' + y);
+      const len = 5 + Math.floor(Math.random() * 14);
+      for(let s = 0; s < len; s++){
+        if(Math.random() < .25) d = (d + (Math.random() < .5 ? 1 : 7)) % 8;
+        const nx = x + DIRS[d][0], ny = y + DIRS[d][1], k = nx + ',' + ny;
+        if(nx < 0 || ny < 0 || nx >= cols || ny >= rows || used.has(k)) break;
+        used.add(k); x = nx; y = ny; pts.push([x, y]);
+      }
+      if(pts.length < 4) continue;
+      const P = pts.map(p => [p[0] * G, p[1] * G]), seg = [0];
+      for(let j = 1; j < P.length; j++) seg.push(seg[j-1] + Math.hypot(P[j][0]-P[j-1][0], P[j][1]-P[j-1][1]));
+      traces.push({ P, seg, len: seg[seg.length-1], color: COLORS[Math.floor(Math.random() * COLORS.length)] });
+    }
+    /* импулсите текат само встрани от текста: вдясно на широк екран, в долната част на тесен */
+    hot = traces.filter(t => W > 1100 ? t.P.every(p => p[0] > W * .52) : t.P.every(p => p[1] > H * .78 || p[0] > W * .92));
+    layer = document.createElement('canvas'); layer.width = cv.width; layer.height = cv.height;
+    const b = layer.getContext('2d'); b.scale(dpr, dpr);
+    b.lineJoin = 'miter'; b.strokeStyle = 'rgba(150,172,225,.13)'; b.lineWidth = 1;
+    traces.forEach(t => {
+      b.beginPath(); t.P.forEach((p, i) => i ? b.lineTo(p[0], p[1]) : b.moveTo(p[0], p[1])); b.stroke();
+    });
+    b.fillStyle = '#070B14'; b.strokeStyle = 'rgba(150,172,225,.3)';
+    traces.forEach(t => [t.P[0], t.P[t.P.length-1]].forEach(p => { b.fillRect(p[0]-3, p[1]-3, 6, 6); b.strokeRect(p[0]-3.5, p[1]-3.5, 7, 7); }));
+    /* по-тъмно зад текста вляво */
+    b.globalCompositeOperation = 'destination-out';
+    const wide = W > 1100, gr = b.createLinearGradient(0, 0, W * (wide ? .6 : 1), 0);
+    gr.addColorStop(0, `rgba(0,0,0,${wide ? .8 : .7})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
+    b.fillStyle = gr; b.fillRect(0, 0, W, H);
+    pulses = [];
+  }
+
+  function pointAt(t, d){
+    d = Math.max(0, Math.min(t.len, d));
+    let i = 1; while(i < t.seg.length - 1 && t.seg[i] < d) i++;
+    const a = t.P[i-1], c = t.P[i], k = (d - t.seg[i-1]) / ((t.seg[i] - t.seg[i-1]) || 1);
+    return [a[0] + (c[0]-a[0]) * k, a[1] + (c[1]-a[1]) * k];
+  }
+
+  function draw(){
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    if(layer) ctx.drawImage(layer, 0, 0, W, H);
+    if(!traces.length) return;
+    if(hot.length && pulses.length < maxPulses && Math.random() < .12)
+      pulses.push({ t: hot[Math.floor(Math.random() * hot.length)], d: 0, v: 2.6 + Math.random() * 3, rev: Math.random() < .5 });
+    ctx.lineCap = 'round';
+    for(let i = pulses.length - 1; i >= 0; i--){
+      const p = pulses[i]; p.d += p.v;
+      if(p.d > p.t.len + 50){ pulses.splice(i, 1); continue; }
+      const pos = s => pointAt(p.t, p.rev ? p.t.len - s : s);
+      ctx.strokeStyle = p.t.color;
+      for(let s = 0; s < 4; s++){
+        const a = pos(p.d - 12 * s), c = pos(p.d - 12 * (s + 1));
+        ctx.globalAlpha = .75 - s * .18; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(c[0], c[1]); ctx.stroke();
+      }
+      const h = pos(p.d); ctx.globalAlpha = .9;
+      ctx.drawImage(sprites[p.t.color], h[0] - 12, h[1] - 12, 24, 24);
+    }
+    ctx.globalAlpha = 1;
+  }
+  function loop(now){
+    if(!running) return;
+    raf = requestAnimationFrame(loop);
+    if(now - last < 33) return;   // ~30 fps
+    last = now; draw();
+  }
+  function start(){ if(running || reduced) return; running = true; raf = requestAnimationFrame(loop); }
+  function stop(){ running = false; cancelAnimationFrame(raf); }
+  build(); draw();
+  let rt, lastW = innerWidth;
+  addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => { if(Math.abs(innerWidth - lastW) < 2 && Math.abs(cv.clientHeight * dpr - cv.height) < 80) return; lastW = innerWidth; build(); draw(); }, 200);
+  });
+  let visible = true;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible && !document.hidden ? start() : stop(); }).observe(hero);
+  document.addEventListener('visibilitychange', () => document.hidden ? stop() : (visible && start()));
+})();
+
+/* =====================================================================
+   HERO: СЛЕДВАЩО СЪБИТИЕ + ОБРАТНО БРОЕНЕ
+   ===================================================================== */
+const byStart = [...EVENTS].sort((a, b) => evStart(a) - evStart(b));
+(function nextEvent(){
+  const u = {}; $$('#countdown b').forEach(b => u[b.dataset.u] = b);
+  const pad = n => String(n).padStart(2, '0');
+  let shown = null, timer;
+  function pick(){ const now = Date.now(); return byStart.find(e => evEnd(e) > now); }
+  function tick(){
+    const e = pick();
+    if(!e){
+      $('#nextTitle').textContent = 'Очаквайте скоро'; $('#nextMeta').textContent = 'Календарът за следващия период се подготвя.';
+      $('#countdown').style.display = 'none'; $('#nextSoon').textContent = ''; clearInterval(timer); return;
+    }
+    if(e !== shown){
+      shown = e; const p = parts(e.date);
+      $('#nextTitle').textContent = e.title;
+      $('#nextMeta').textContent = `${p.d} ${MONTHS_L[p.m]}, ${DAYS[p.dow]} · ${e.start} ч. · ${e.place}`;
+      $('#nextSoon').innerHTML = `<span class="tag c-${CATS[e.cat]}">${esc(e.cat)}</span>`;
+    }
+    const live = Date.now() >= evStart(e);
+    $('#countdown').classList.toggle('live', live);
+    let s = live ? 0 : Math.max(0, Math.floor((evStart(e) - Date.now()) / 1000));
+    u.d.textContent = pad(Math.floor(s / 86400)); s %= 86400;
+    u.h.textContent = pad(Math.floor(s / 3600)); s %= 3600;
+    u.m.textContent = pad(Math.floor(s / 60)); u.s.textContent = pad(s % 60);
+    if(live) $('#nextMeta').textContent = `Тече в момента · до ${e.end} ч. · ${e.place}`;
+  }
+  tick(); timer = setInterval(tick, 1000);
+})();
+
+(function panelMeter(){
+  const rows = INITIATIVES.filter(i => i.status === 'progress').slice(0, 3);
+  $('#panelMeter').innerHTML = rows.map(i =>
+    `<div class="meter-row c-${i.c}"><span title="${esc(i.title)}">${esc(i.title)}</span><em>${i.p}%</em><div class="bar"><i data-w="${i.p}%"></i></div></div>`).join('');
+  observeBars($('#panelMeter'));
+})();
+
+$('#notices').innerHTML = NOTICES.map(([tag, text, c, href]) =>
+  `<div class="notice" style="--c:${c === 'spark' ? 'var(--d-spark)' : 'var(--' + c + ')'}"><b>${esc(tag)}</b><a href="${href}">${esc(text)}</a></div>`).join('');
+
+/* Броячи */
+$('#statIni').dataset.count = INITIATIVES.length; $('#statIni').textContent = INITIATIVES.length;
+if(!reduced){
+  const countIO = new IntersectionObserver(entries => {
+    if(!entries[0].isIntersecting) return; countIO.disconnect();
+    $$('[data-count]').forEach(el => {
+      const to = +el.dataset.count, t0 = performance.now();
+      (function step(now){
+        const k = Math.min(1, (now - t0) / 1200), e = 1 - Math.pow(1 - k, 3);
+        el.textContent = Math.round(to * e);
+        if(k < 1) requestAnimationFrame(step);
+      })(t0);
+    });
+  }, { threshold:.5 });
+  countIO.observe($('#stats'));
+}
+
+/* =====================================================================
+   КАК РАБОТИМ
+   ===================================================================== */
+(function flow(){
+  const wrap = $('#flow'), det = $('#flowDetail');
+  wrap.innerHTML = STEPS.map((s, i) =>
+    `<button type="button" class="step c-${s.c}" role="tab" id="step-${i}" aria-controls="flowDetail" aria-selected="false" tabindex="-1" data-i="${i}">
+       <span class="n">0${i+1}<span>${esc(s.time)}</span></span><h3>${s.title}</h3><p>${s.short}</p>
+     </button>`).join('');
+  let cur = 0;
+  function show(i){
+    cur = i; const s = STEPS[i];
+    $$('.step', wrap).forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
+    det.className = `flow-detail card c-${s.c}`;
+    det.setAttribute('aria-labelledby', 'step-' + i);
+    det.innerHTML = `<div class="big">0${i+1}</div>
+      <div class="swap"><h3>${s.title}</h3><p>${s.text}</p><ul>${s.items.map(x => `<li>${x}</li>`).join('')}</ul></div>
+      <div class="time">Срок<b>${s.time}</b></div>`;
+  }
+  wrap.addEventListener('click', e => { const b = e.target.closest('.step'); if(b) show(+b.dataset.i); });
+  wrap.addEventListener('keydown', e => {
+    const fwd = ['ArrowRight','ArrowDown'].includes(e.key), back = ['ArrowLeft','ArrowUp'].includes(e.key);
+    if(!fwd && !back) return;
+    e.preventDefault();
+    const n = (cur + (fwd ? 1 : STEPS.length - 1)) % STEPS.length;
+    show(n); $$('.step', wrap)[n].focus();
+  });
+  show(0);
+})();
+
+/* =====================================================================
+   СЪБИТИЯ: филтър, изглед, .ics експорт
+   ===================================================================== */
+(function events(){
+  const list = $('#eventList'), filters = $('#eventFilters');
+  let cat = 'Всички', view = 'list';
+  const cats = ['Всички', ...Object.keys(CATS).filter(c => EVENTS.some(e => e.cat === c))];
+  filters.innerHTML = cats.map(c => {
+    const n = c === 'Всички' ? EVENTS.length : EVENTS.filter(e => e.cat === c).length;
+    return `<button type="button" class="chip ${c !== 'Всички' ? 'c-' + CATS[c] : ''}" aria-pressed="${c === cat}" data-cat="${c}">${c}<span class="n">${n}</span></button>`;
+  }).join('');
+  filters.addEventListener('click', e => {
+    const b = e.target.closest('[data-cat]'); if(!b) return;
+    cat = b.dataset.cat; $$('.chip', filters).forEach(x => x.setAttribute('aria-pressed', x === b)); render();
+  });
+  $$('.seg button').forEach(b => b.addEventListener('click', () => {
+    view = b.dataset.view; $$('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b)); render();
+  }));
+  function rel(e){
+    if(evEnd(e) < Date.now()) return 'Отминало';
+    if(evStart(e) <= Date.now()) return 'Тече сега';
+    const n = daysUntil(e.date);
+    if(n <= 0) return 'Днес'; if(n === 1) return 'Утре';
+    return `След ${n} ${plural(n, 'ден', 'дни')}`;
+  }
+  function render(){
+    const now = Date.now();
+    const items = byStart.filter(e => cat === 'Всички' || e.cat === cat)
+      .sort((a, b) => (evEnd(a) < now) - (evEnd(b) < now) || evStart(a) - evStart(b));
+    list.className = view === 'grid' ? 'events grid' : 'events';
+    if(!items.length){ list.innerHTML = `<div class="empty">Няма събития в тази категория.</div>`; return; }
+    list.innerHTML = items.map(e => {
+      const p = parts(e.date), c = CATS[e.cat], past = evEnd(e) < now, idx = EVENTS.indexOf(e);
+      return `<article class="event c-${c} ${past ? 'past' : ''}">
+        <div class="e-date"><b>${p.d}</b><span>${MONTHS_S[p.m]} ${p.y}</span></div>
+        <div class="e-body">
+          <span class="tag">${esc(e.cat)}</span>
+          <h3>${esc(e.title)}</h3><p>${esc(e.desc)}</p>
+          <div class="e-meta"><span>${icon('clock')}${DAYS[p.dow]}, ${e.start}–${e.end}</span><span>${icon('pin')}${esc(e.place)}</span></div>
+        </div>
+        <div class="e-actions"><span class="soon">${rel(e)}</span>
+          ${past ? '' : `<button type="button" class="btn btn-ghost btn-sm" data-ics="${idx}">${icon('cal-plus')}В календара</button>`}</div>
+      </article>`;
+    }).join('');
+  }
+  list.addEventListener('click', e => {
+    const b = e.target.closest('[data-ics]'); if(!b) return;
+    const ev = EVENTS[+b.dataset.ics];
+    const utc = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const clean = s => String(s).replace(/\\/g, '\\\\').replace(/[,;]/g, m => '\\' + m).replace(/\r?\n/g, '\\n');
+    const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//UchS PGEA//BG','CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VEVENT',
+      `UID:${ev.date}-${b.dataset.ics}@uchs-pgea`, `DTSTAMP:${utc(new Date())}`,
+      `DTSTART:${utc(evStart(ev))}`, `DTEND:${utc(evEnd(ev))}`,
+      `SUMMARY:${clean(ev.title)}`, `LOCATION:${clean(ev.place + ', ПГЕА, бул. Овча купел 1, 1618 София')}`,
+      `DESCRIPTION:${clean(ev.desc)}`, 'BEGIN:VALARM','TRIGGER:-PT1H','ACTION:DISPLAY','DESCRIPTION:Напомняне','END:VALARM',
+      'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([ics], { type:'text/calendar;charset=utf-8' }));
+    a.download = `uchs-pgea-${ev.date}.ics`; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    toast('Файлът е изтеглен — отвори го, за да добавиш събитието в календара.');
+  });
+  render();
+})();
+
+/* =====================================================================
+   ИНИЦИАТИВИ
+   ===================================================================== */
+(function initiatives(){
+  const ST = { done:['Изпълнена','Изпълнени','var(--mint)'], progress:['В процес','В процес','var(--spark)'], planned:['Планирана','Планирани','var(--violet)'] };
+  const count = k => INITIATIVES.filter(i => i.status === k).length, total = INITIATIVES.length;
+  const bars = $$('#trackerBar i');
+  $('#trackerLegend').innerHTML = Object.entries(ST).map(([k, v]) => `<span><i style="background:${v[2]}"></i>${v[1]} <b>${count(k)}</b></span>`).join('');
+  Object.keys(ST).forEach((k, i) => bars[i].dataset.w = (count(k) / total * 100) + '%');
+  observeBars($('#trackerBar'));
+
+  const fl = $('#iniFilters'), grid = $('#iniGrid'); let f = 'all';
+  const opts = [['all', 'Всички', total], ...Object.entries(ST).map(([k, v]) => [k, v[1], count(k)])];
+  fl.innerHTML = opts.map(([k, l, n]) => `<button type="button" class="chip" aria-pressed="${k === f}" data-f="${k}">${l}<span class="n">${n}</span></button>`).join('');
+  fl.addEventListener('click', e => { const b = e.target.closest('[data-f]'); if(!b) return; f = b.dataset.f; $$('.chip', fl).forEach(x => x.setAttribute('aria-pressed', x === b)); render(); });
+  function render(){
+    grid.innerHTML = INITIATIVES.filter(i => f === 'all' || i.status === f).map(i => `
+      <article class="ini card accent c-${i.c}">
+        <div class="ini-top"><span class="tag">${esc(i.com)}</span><span class="status s-${i.status}">${ST[i.status][0]}</span></div>
+        <h3>${esc(i.title)}</h3><p>${esc(i.desc)}</p>
+        <div class="ini-foot">
+          <div class="ini-progress"><span>Напредък</span><b>${i.p}%</b></div>
+          <div class="bar"><i data-w="${i.p}%"></i></div>
+          <div class="ini-next"><b>${i.status === 'done' ? 'Какво следва:' : 'Следваща стъпка:'}</b> ${esc(i.next)}</div>
+        </div>
+      </article>`).join('');
+    observeBars(grid);
+  }
+  render();
+})();
+
+/* =====================================================================
+   КОМИСИИ
+   ===================================================================== */
+(function committees(){
+  const tabs = $('#comTabs'), panel = $('#comPanel');
+  tabs.innerHTML = COMMITTEES.map((c, i) => `<button type="button" class="com-tab c-${c.c}" role="tab" id="tab-${c.id}" aria-controls="comPanel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">
+    ${icon(c.icon)}${c.name}<span class="n">0${i+1}</span></button>`).join('');
+  function show(i){
+    const c = COMMITTEES[i];
+    $$('.com-tab', tabs).forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
+    panel.className = `com-panel c-${c.c}`;
+    panel.setAttribute('aria-labelledby', 'tab-' + c.id);
+    panel.innerHTML = `<div class="swap">
+      <span class="tag">Комисия 0${i+1} / 0${COMMITTEES.length}</span>
+      <h3>${c.name}</h3><p class="lead">${c.text}</p>
+      <div class="com-cols">
+        <div><h4>С какво се занимава</h4><ul>${c.does.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        <div><h4>Кого търсим</h4><ul>${c.wants.map(x => `<li>${x}</li>`).join('')}</ul></div>
+      </div>
+      <div class="hero-actions">
+        <a href="#join" class="btn btn-primary" data-committee="${c.id}">Присъедини се <svg class="i go"><use href="#i-arrow"/></svg></a>
+        <a href="#idea" class="btn btn-ghost">Предложи идея</a>
+      </div></div>`;
+  }
+  $$('.com-tab', tabs).forEach((b, i) => b.addEventListener('click', () => show(i)));
+  tabs.addEventListener('keydown', e => {
+    const all = $$('.com-tab', tabs), i = all.indexOf(document.activeElement); if(i < 0) return;
+    let n = null;
+    if(e.key === 'ArrowDown' || e.key === 'ArrowRight') n = (i + 1) % all.length;
+    if(e.key === 'ArrowUp' || e.key === 'ArrowLeft') n = (i - 1 + all.length) % all.length;
+    if(n !== null){ e.preventDefault(); show(n); all[n].focus(); }
+  });
+  show(0);
+})();
+
+/* =====================================================================
+   ЕКИП
+   ===================================================================== */
+$('#teamGrid').innerHTML = TEAM.map((p, i) => {
+  const ini = p.vacant ? '+' : p.name.split(' ').map(w => w[0]).join('').slice(0, 2);
+  return `<article class="person card c-${p.c} ${p.vacant ? 'vacant' : ''} reveal ${i ? 'reveal-d' + Math.min(i, 3) : ''}">
+    <div class="avatar">${esc(ini)}</div>
+    <h3>${p.vacant ? 'Свободно място' : esc(p.name)}</h3><span class="role">${esc(p.role)}</span><p>${esc(p.text)}</p>
+    ${p.vacant ? `<a href="#join" data-join-role="Кандидат за ръководна позиция">Кандидатствай ${icon('arrow')}</a>` : ''}
+  </article>`;
+}).join('');
+
+/* =====================================================================
+   ИЗПРАЩАНЕ НА ФОРМИ → ИМЕЙЛ (FormSubmit)
+   ===================================================================== */
+const RX = {
+  name: /^[A-Za-zА-Яа-яЀ-ӿ][A-Za-zА-Яа-яЀ-ӿ' .\-]*$/u,
+  cls: /^(8|9|10|11|12)[А-Я]$/u,
+  email: /^[^\s@]{1,64}@[^\s@.]+(\.[^\s@.]+)*\.[A-Za-z]{2,}$/,
+  link: /(https?:\/\/|www\.)|\b[a-z0-9-]+\.(com|bg|net|org|ru|info|io|xyz|me|link|ly)\b/i,
+  repeat: /(.)\1{5,}/u
+};
+const oneLine = s => s.replace(/\s+/g, ' ').trim();
+const multiLine = s => s.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+const LAT2CYR = { A:'А', B:'Б', V:'В', G:'Г', D:'Д', E:'Е', Z:'З', I:'И', K:'К' };
+const normClass = v => { const s = v.replace(/\s+/g, '').toUpperCase(); return s.replace(/[A-Z]$/, m => LAT2CYR[m] || m); };
+
+function checkText(v, { min = 0, max, required = false }){
+  if(!v) return required ? 'Полето е задължително.' : '';
+  if(v.length < min) return `Поне ${min} символа (сега ${v.length}).`;
+  if(v.length > max) return `Най-много ${max} символа.`;
+  if(RX.link.test(v)) return 'Без линкове и адреси на сайтове, моля.';
+  if(RX.repeat.test(v)) return 'Твърде много повтарящи се символи.';
+  if(!/[A-Za-zА-Яа-я]{2,}/.test(v)) return 'Опиши го с думи.';
+  const letters = v.replace(/[^A-Za-zА-Яа-я]/g, '');
+  if(letters.length >= 12 && letters.replace(/[^A-ZА-Я]/g, '').length / letters.length > .7) return 'Моля, без писане само с главни букви.';
+  return '';
+}
+function checkName(v){
+  if(!v) return 'Въведи име и фамилия.';
+  if(v.length > 60) return 'Най-много 60 символа.';
+  if(!RX.name.test(v)) return 'Само букви, интервал и тире.';
+  const w = v.split(' ').filter(Boolean);
+  if(w.length < 2 || w.some(x => x.replace(/[^A-Za-zА-Яа-яЀ-ӿ]/g, '').length < 2)) return 'Въведи име и фамилия.';
+  return '';
+}
+const checkClass = v => !v ? 'Въведи клас.' : (RX.cls.test(v) ? '' : 'Формат: 8А … 12Я, напр. 11Б.');
+const checkEmail = (v, required) => !v ? (required ? 'Въведи имейл.' : '') : (v.length <= 80 && RX.email.test(v) ? '' : 'Невалиден имейл адрес.');
+
+/* Показва/скрива грешка до поле */
+function fieldError(form, key, msg, markEl){
+  const slot = form.querySelector(`[data-err="${key}"]`); if(slot) slot.textContent = msg || '';
+  if(markEl) markEl.classList.toggle('err', !!msg);
+  if(markEl && markEl.setAttribute) markEl.setAttribute('aria-invalid', msg ? 'true' : 'false');
+}
+
+/* Поле „Статус“ */
+function statusCtl(el){
+  const t = $('.st-text', el), m = $('.st-meta', el);
+  const fn = (state, text, meta = '') => { el.dataset.state = state; t.textContent = text; m.textContent = meta; };
+  fn.state = () => el.dataset.state;
+  return fn;
+}
+
+/* Лимит на изпращанията (по браузър) */
+const guard = {
+  log(kind){ const now = Date.now(); return store.get('uchs-sent-' + kind, []).filter(t => now - t < 864e5); },
+  check(kind){
+    const log = this.log(kind), now = Date.now(), cd = CONFIG.limits.cooldownSec * 1000;
+    if(log.length && now - log[log.length - 1] < cd) return { wait: Math.ceil((cd - (now - log[log.length - 1])) / 1000) };
+    if(log.length >= CONFIG.limits.perDay) return { daily: true };
+    return null;
+  },
+  mark(kind){ const log = this.log(kind); log.push(Date.now()); store.set('uchs-sent-' + kind, log); }
+};
+function guardMessage(g){ return g.daily ? ['error', `Достигнат е дневният лимит от ${CONFIG.limits.perDay} изпращания. Опитай утре.`, 'лимит'] : ['wait', `Изчакай ${g.wait} сек. преди следващото предаване.`, `${g.wait} сек.`]; }
+
+const refNo = () => (Date.now().toString(36).slice(-4) + Math.random().toString(36).slice(2, 4)).toUpperCase();
+const stamp = () => new Date().toLocaleString('bg-BG', { timeZone:'Europe/Sofia', day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+const timeNow = () => new Date().toLocaleTimeString('bg-BG', { timeZone:'Europe/Sofia', hour:'2-digit', minute:'2-digit' });
+
+async function deliver(subject, fields, replyTo){
+  if(location.protocol === 'file:') return { ok:false, code:'file' };
+  if(navigator.onLine === false) return { ok:false, code:'offline' };
+  const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 15000);
+  const body = { _subject: subject, _template: 'table', _captcha: 'false', ...fields };
+  if(replyTo) body._replyto = replyTo;
+  try{
+    const r = await fetch(CONFIG.formEndpoint, { method:'POST', headers:{ 'Content-Type':'application/json', 'Accept':'application/json' }, body: JSON.stringify(body), signal: ctrl.signal });
+    const data = await r.json().catch(() => ({}));
+    if(r.ok && String(data.success) === 'true') return { ok:true };
+    if(/activat/i.test(data.message || '')) return { ok:false, code:'activate' };
+    return { ok:false, code:'server' };
+  }catch(e){ return { ok:false, code: e.name === 'AbortError' ? 'timeout' : 'network' }; }
+  finally{ clearTimeout(timer); }
+}
+const DELIVERY_ERR = {
+  file:     'Формите изпращат само когато сайтът е публикуван онлайн (не от локален файл).',
+  offline:  'Няма интернет връзка. Провери я и опитай пак.',
+  timeout:  'Сървърът не отговори навреме. Опитай пак.',
+  activate: 'Пощенската услуга още не е активирана — администраторът трябва да потвърди писмото от FormSubmit.',
+  server:   'Неуспешно предаване. Опитай пак след малко.',
+  network:  'Неуспешно предаване. Опитай пак след малко.'
+};
+
+/* Броячи на символи */
+function updateCounter(c){
+  const el = document.getElementById(c.dataset.for); if(!el) return;
+  const n = el.value.length, min = +el.getAttribute('minlength') || 0;
+  c.textContent = `${n} / ${el.maxLength}${min && n && n < min ? ` · мин. ${min}` : ''}`;
+  c.classList.toggle('over', !!(min && n && n < min));
+}
+$$('.counter').forEach(c => { updateCounter(c); document.getElementById(c.dataset.for).addEventListener('input', () => updateCounter(c)); });
+
+/* Първо взаимодействие с формата (защита от ботове, които изпращат мигновено) */
+function trackStart(form){ form.addEventListener('focusin', () => { if(!form._t0) form._t0 = Date.now(); }); }
+const tooFast = form => !form._t0 || Date.now() - form._t0 < CONFIG.limits.minFillSec * 1000;
+const isBot = form => !!(form.querySelector('[name=_honey]') || {}).value;
+
+/* =====================================================================
+   ФОРМА: ПРЕДЛОЖИ ИДЕЯ
+   ===================================================================== */
+(function ideaForm(){
+  const form = $('#ideaForm'), st = statusCtl($('.send-status', form)), btn = $('[type=submit]', form);
+  $('#ideaCats').innerHTML = IDEA_CATS.map(([n, c]) => `<label class="c-${c}"><input type="radio" name="cat" value="${n}"><span>${n}</span></label>`).join('');
+  const anon = $('#anon'), who = $('#ideaWho');
+  const idle = () => st('idle', 'Готово за предаване', 'Enter ↵');
+  let busy = false;
+  trackStart(form);
+
+  anon.addEventListener('change', () => {
+    who.style.display = anon.checked ? 'none' : '';
+    if(anon.checked) ['name', 'class', 'email'].forEach(k => fieldError(form, k, '', $(`#idea${k[0].toUpperCase() + k.slice(1)}`)));
+  });
+  $('#ideaClass').addEventListener('blur', e => { e.target.value = normClass(e.target.value); });
+  form.addEventListener('input', e => {
+    const k = e.target.name === 'cat' ? 'cat' : e.target.name;
+    if(k) fieldError(form, k, '', k === 'cat' ? $('#ideaCats') : e.target);
+    if(['invalid','error','ok'].includes(st.state())) idle();
+  });
+  $('#ideaText').addEventListener('keydown', e => { if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); form.requestSubmit ? form.requestSubmit() : btn.click(); } });
+
+  function validate(){
+    const v = {
+      title: oneLine($('#ideaTitle').value), details: multiLine($('#ideaText').value),
+      cat: ($('input[name=cat]:checked', form) || {}).value || '', anon: anon.checked,
+      name: oneLine($('#ideaName').value), cls: normClass($('#ideaClass').value), email: oneLine($('#ideaEmail').value).toLowerCase()
+    };
+    const errs = [
+      ['title', checkText(v.title, { min:10, max:90, required:true }), $('#ideaTitle')],
+      ['cat', v.cat ? '' : 'Избери категория.', $('#ideaCats')],
+      ['details', checkText(v.details, { min:0, max:600 }), $('#ideaText')]
+    ];
+    if(!v.anon) errs.push(['name', checkName(v.name), $('#ideaName')], ['class', checkClass(v.cls), $('#ideaClass')], ['email', checkEmail(v.email, false), $('#ideaEmail')]);
+    const sent = store.get('uchs-idea-titles', []);
+    if(!errs[0][1] && sent.includes(v.title.toLowerCase())) errs[0][1] = 'Тази идея вече е предадена от този браузър.';
+    errs.forEach(([k, m, el]) => fieldError(form, k, m, el));
+    return { v, bad: errs.filter(e => e[1]) };
+  }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if(busy) return;
+    const { v, bad } = validate();
+    if(bad.length){
+      st('invalid', bad.length === 1 ? 'Провери отбелязаното поле.' : `Провери отбелязаните полета (${bad.length}).`, `${bad.length} ${plural(bad.length, 'грешка', 'грешки')}`);
+      const first = bad[0][2]; (first.matches('input,textarea') ? first : $('input', first)).focus(); return;
+    }
+    const g = guard.check('idea'); if(g){ st(...guardMessage(g)); return; }
+    if(tooFast(form)){ st('error', 'Твърде бързо. Прегледай формата и предай отново.', ''); form._t0 = Date.now(); return; }
+    const ref = refNo();
+    if(isBot(form)){ st('ok', 'Предадено успешно.', `${timeNow()} · №${ref}`); form.reset(); return; }
+
+    busy = true; btn.disabled = true; st('sending', 'Предава се към пощата на Съвета…', '');
+    const fields = {
+      'Номер': ref, 'Идея': v.title, 'Категория': v.cat, 'Подробности': v.details || '—',
+      'Анонимно': v.anon ? 'Да' : 'Не', 'Име': v.anon ? '—' : v.name, 'Клас': v.anon ? '—' : v.cls,
+      'Имейл за отговор': v.anon ? '—' : (v.email || '—'), 'Изпратено': stamp(), 'Страница': location.href
+    };
+    const res = await deliver(`[УчС ПГЕА] Нова идея №${ref}: ${v.title}`, fields, !v.anon && v.email ? v.email : '');
+    busy = false; btn.disabled = false;
+    if(!res.ok){ st('error', DELIVERY_ERR[res.code], 'грешка'); return; }
+    guard.mark('idea');
+    store.set('uchs-idea-titles', [v.title.toLowerCase(), ...store.get('uchs-idea-titles', [])].slice(0, 30));
+    form.reset(); who.style.display = ''; $$('.counter', form).forEach(updateCounter); form._t0 = 0;
+    st('ok', 'Предадено. Ще получиш отговор до 7 дни.', `${timeNow()} · №${ref}`);
+  });
+})();
+
+/* =====================================================================
+   АНКЕТА — гласът се предава по имейл
+   ===================================================================== */
+(function poll(){
+  const form = $('#pollForm'), opts = $('#pollOpts'), st = statusCtl($('.send-status', form)), btn = $('[type=submit]', form);
+  const key = 'uchs-poll-' + POLL.id, closed = Date.now() > sofia(POLL.closes, '23:59');
+  const cp = parts(POLL.closes);
+  $('#pollQ').textContent = POLL.q;
+  let mine = store.get(key, null), busy = false;
+  function render(){
+    if(mine !== null || closed){
+      $('#pollSub').textContent = closed ? 'Анкетата приключи.' : 'Благодарим за гласа!';
+      opts.innerHTML = `<div class="poll-done">${mine !== null ? `Твоят глас: <b>${esc(POLL.options[mine.i][0])}</b> · предаден на ${esc(mine.at)}<br>` : ''}${esc(POLL.results)}</div>`;
+      $('#pollSubmit').style.display = 'none';
+      return;
+    }
+    $('#pollSub').textContent = `Един глас от човек. Гласуването е до ${cp.d} ${MONTHS_L[cp.m]}.`;
+    opts.innerHTML = POLL.options.map((o, i) => `<label class="poll-opt c-${o[1]}"><input type="radio" name="vote" value="${i}"><span>${esc(o[0])}</span></label>`).join('');
+  }
+  opts.addEventListener('change', () => st('idle', 'Готово за предаване', 'Enter ↵'));
+  form.addEventListener('submit', async e => {
+    e.preventDefault(); if(busy || mine !== null || closed) return;
+    const sel = $('input[name=vote]:checked', form);
+    if(!sel){ st('invalid', 'Избери един от отговорите.', ''); $('input[name=vote]', form).focus(); return; }
+    const g = guard.check('poll'); if(g){ st(...guardMessage(g)); return; }
+    const i = +sel.value, ref = refNo();
+    if(isBot(form)){ st('ok', 'Гласът е предаден.', `№${ref}`); return; }
+    busy = true; btn.disabled = true; $$('input', opts).forEach(x => x.disabled = true);
+    st('sending', 'Гласът се предава…', '');
+    const res = await deliver(`[УчС ПГЕА] Глас в анкета: ${POLL.options[i][0]}`,
+      { 'Номер': ref, 'Анкета': POLL.q, 'Глас': POLL.options[i][0], 'Изпратено': stamp(), 'Страница': location.href });
+    busy = false; btn.disabled = false; $$('input', opts).forEach(x => x.disabled = false);
+    if(!res.ok){ st('error', DELIVERY_ERR[res.code], 'грешка'); return; }
+    guard.mark('poll');
+    mine = { i, at: stamp(), ref }; store.set(key, mine);
+    render(); toast('Гласът ти е предаден. Благодарим!');
+  });
+  render();
+})();
+
+/* Табло „Идеи в работа“ */
+$('#ideaBoard').innerHTML = IDEA_BOARD.map(i => {
+  const [label, c] = IDEA_ST[i.status] || ['—', 'volt'];
+  return `<div class="idea c-${c}"><h4>${esc(i.title)}</h4><span class="st">${label}</span><small>${esc(i.cat)} · ${esc(i.note)}</small></div>`;
+}).join('');
+
+/* =====================================================================
+   ВКЛЮЧИ СЕ: форма в 3 стъпки
+   ===================================================================== */
+(function join(){
+  const form = $('#joinForm'), steps = $$('.jstep', form), bars = $$('#stepsBar > div');
+  const back = $('#jBack'), next = $('#jNext'), st = statusCtl($('#joinStatus'));
+  $('#joinPick').innerHTML = COMMITTEES.map(c => `<label class="c-${c.c}"><input type="checkbox" name="committees" value="${c.id}"><span>${c.name}</span></label>`).join('');
+  let cur = 0, busy = false;
+  trackStart(form);
+  const stepHint = () => st('idle', `Стъпка ${cur + 1} от ${steps.length}`, cur === steps.length - 1 ? 'Enter ↵ — предай' : 'Enter ↵ — напред');
+
+  function go(i){
+    cur = i;
+    steps.forEach((s, k) => s.classList.toggle('on', k === i));
+    bars.forEach((b, k) => { b.classList.toggle('done', k < i); b.classList.toggle('cur', k === i); });
+    back.style.visibility = i ? 'visible' : 'hidden';
+    next.innerHTML = i === steps.length - 1 ? 'Предай <kbd>↵</kbd>' : `Напред ${icon('arrow', 'i go')}`;
+    stepHint();
+  }
+  const val = id => oneLine($(id).value);
+  function validate(i){
+    let errs = [];
+    if(i === 0){
+      $('#jClass').value = normClass($('#jClass').value);
+      errs = [['name', checkName(val('#jName')), $('#jName')], ['class', checkClass(val('#jClass')), $('#jClass')], ['email', checkEmail(val('#jEmail').toLowerCase(), true), $('#jEmail')]];
+    }
+    if(i === 1){
+      const n = $$('input[name=committees]:checked', form).length;
+      errs = [['committees', n < 1 ? 'Избери поне една комисия.' : (n > 3 ? 'Най-много 3 комисии.' : ''), $('#joinPick')]];
+    }
+    if(i === 2){
+      errs = [['motivation', checkText(multiLine($('#jWhy').value), { min:40, max:500, required:true }), $('#jWhy')],
+              ['skills', checkText(val('#jSkills'), { max:120 }), $('#jSkills')],
+              ['consent', $('#jConsent').checked ? '' : 'Нужно е съгласие за обработка на данните.', $('#jConsentWrap')]];
+    }
+    errs.forEach(([k, m, el]) => fieldError(form, k, m, el));
+    const bad = errs.filter(e => e[1]);
+    if(bad.length){
+      st('invalid', bad[0][0] === 'consent' && bad.length === 1 ? 'Отбележи съгласието за обработка на данните.' : (bad.length === 1 ? 'Провери отбелязаното поле.' : `Провери отбелязаните полета (${bad.length}).`), `стъпка ${i + 1}`);
+      const el = bad[0][2]; (el.matches('input,textarea') ? el : $('input', el)).focus();
+    }
+    return !bad.length;
+  }
+  form.addEventListener('input', e => {
+    const k = e.target.name; if(!k) return;
+    const mark = k === 'committees' ? $('#joinPick') : k === 'consent' ? $('#jConsentWrap') : e.target;
+    fieldError(form, k, '', mark);
+    if(k === 'committees' && $$('input[name=committees]:checked', form).length > 3){
+      e.target.checked = false; fieldError(form, 'committees', 'Най-много 3 комисии.', $('#joinPick'));
+    }
+    if(['invalid','error'].includes(st.state())) stepHint();
+  });
+
+  next.addEventListener('click', async () => {
+    if(busy || !validate(cur)) return;
+    if(cur < steps.length - 1) return go(cur + 1);
+    const g = guard.check('join'); if(g){ st(...guardMessage(g)); return; }
+    if(tooFast(form)){ st('error', 'Твърде бързо. Прегледай данните и предай отново.', ''); form._t0 = Date.now(); return; }
+    const ref = refNo();
+    const done = () => {
+      form.style.display = 'none'; $('#stepsBar').style.display = 'none';
+      $('#joinRef').textContent = `Номер на заявката: №${ref} · ${stamp()}`;
+      $('#joinSuccess').classList.add('on');
+    };
+    if(isBot(form)) return done();
+    const coms = $$('input[name=committees]:checked', form).map(x => COMMITTEES.find(c => c.id === x.value).name);
+    busy = true; next.disabled = true; back.disabled = true;
+    st('sending', 'Заявката се предава към пощата на Съвета…', '');
+    const name = val('#jName'), cls = val('#jClass'), email = val('#jEmail').toLowerCase();
+    const res = await deliver(`[УчС ПГЕА] Заявка №${ref}: ${name}, ${cls}`, {
+      'Номер': ref, 'Име': name, 'Клас': cls, 'Имейл': email, 'Комисии': coms.join(', '),
+      'Роля': $('#jRole').value, 'Мотивация': multiLine($('#jWhy').value), 'Умения': val('#jSkills') || '—',
+      'Съгласие за данните': 'Да', 'Изпратено': stamp(), 'Страница': location.href
+    }, email);
+    busy = false; next.disabled = false; back.disabled = false;
+    if(!res.ok){ st('error', DELIVERY_ERR[res.code], 'грешка'); return; }
+    guard.mark('join'); done();
+  });
+  back.addEventListener('click', () => go(Math.max(0, cur - 1)));
+  form.addEventListener('keydown', e => {
+    if(e.key !== 'Enter') return;
+    const t = e.target;
+    if(t.tagName === 'TEXTAREA' && !(e.ctrlKey || e.metaKey)) return;
+    if(t.tagName === 'BUTTON' || t.tagName === 'SELECT') return;
+    e.preventDefault(); next.click();
+  });
+  $('#jAgain').addEventListener('click', () => {
+    form.reset(); $$('.counter', form).forEach(updateCounter); form._t0 = 0;
+    form.style.display = ''; $('#stepsBar').style.display = ''; $('#joinSuccess').classList.remove('on'); go(0);
+  });
+  // Предварителен избор от бутоните „Присъедини се“ / „Кандидатствай“
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-committee],[data-join-role]'); if(!a) return;
+    if(a.dataset.committee){ const cb = form.querySelector(`input[value="${a.dataset.committee}"]`); if(cb && $$('input[name=committees]:checked', form).length < 3) cb.checked = true; }
+    if(a.dataset.joinRole){ $('#jRole').value = a.dataset.joinRole; }
+  });
+  go(0);
+})();
+
+/* =====================================================================
+   КОНТАКТИ, КАРТА И ФИНАЛ
+   ===================================================================== */
+$('#officeHours').textContent = CONFIG.officeHours;
+if(CONFIG.officePlace) $('#officePlace').textContent = CONFIG.officePlace; else $('#officePlace').remove();
+const socials = CONFIG.socials.filter(s => s.url && s.url !== '#');
+if(socials.length) $('#socials').innerHTML = socials.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${icon(s.icon)}${esc(s.name)}</a>`).join('');
+else $('.c-foot').remove();
+$('#year').textContent = new Date().getFullYear();
+
+/* Картата се зарежда, когато секцията приближи екрана */
+(function map(){
+  const f = $('#mapIframe'), wrap = $('#mapFrame');
+  f.addEventListener('load', () => { if(f.src){ f.classList.add('ready'); const l = $('.loading', wrap); if(l) l.remove(); } });
+  const io = new IntersectionObserver(([e]) => { if(e.isIntersecting){ f.src = f.dataset.src; io.disconnect(); } }, { rootMargin:'600px 0px' });
+  io.observe(wrap);
+})();
+
+/* Акордеон: отворен е само един в група */
+$$('.acc').forEach(acc => acc.addEventListener('toggle', e => {
+  if(e.target.open) $$('details', acc).forEach(d => { if(d !== e.target) d.open = false; });
+}, true));
+
+observeReveal();
+</script>
+</body>
+</html>
